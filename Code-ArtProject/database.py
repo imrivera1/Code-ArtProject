@@ -1,8 +1,10 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy 
 
-app = Flask(_name_)
-app.config["SQLAlchemy_DATABASE_URI"] = "sqlite:////database/ca_database.db"
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///databaseFiles/ca_database.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -10,8 +12,15 @@ class User(db.Model):
     username = db.Column(db.String(80), unique = True, nullable = False)
     email = db.Column(db.String(120), unique = True, nullable = False)
 
-    def _repr_(self):
-        return "<User %r>" % self.username
+    def __repr__(self):
+        return self.username
+
+
+@app.route("/")
+def home():
+    check_user_names = (str) ( User.query.all() )
+    check_user = (str) ( User.query.filter_by(username='guest').first() )
+    return "User: " + check_user_names
 
 
 
