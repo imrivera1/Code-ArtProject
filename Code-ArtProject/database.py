@@ -1,10 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy 
 
-_name_ = "CodeArtDatabase"
-
 app = Flask(_name_)
-app.config["SQLAlchemy_DATABASE_URI"] = "sqlite:////Code-ArtProject/ca_database.db"
+app.config["SQLAlchemy_DATABASE_URI"] = "sqlite:////database/ca_database.db"
 db = SQLAlchemy(app)
 
 class User(db.Model):
