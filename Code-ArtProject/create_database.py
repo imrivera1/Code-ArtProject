@@ -43,6 +43,9 @@ class Internship(db.Model):
     location = db.Column(db.Text)
     lat = db.Column(db.Float)
     long = db.Column(db.Float)
+    company = db.Column(db.Text, nullable = False)
+    phone_number = db.Column(db.Text)
+    email = db.Column(db.Text, unique=True,nullable = False)
     start_datetime = db.Column(db.Text, nullable = False)
     end_datetime = db.Column(db.Text, nullable = False)
     accepted = db.Column(db.Boolean, nullable = False)
@@ -55,6 +58,7 @@ class Event(db.Model):
     id: int
     organizers: str
     location: str
+    email: str
     details: str
     accepted: bool
     """
@@ -63,6 +67,8 @@ class Event(db.Model):
     location = db.Column(db.Text)
     lat = db.Column(db.Float)
     long = db.Column(db.Float)
+    organizers = db.Column(db.Text, nullable = False)
+    email = db.Column(db.Text, unique=True,nullable = False)
     start_datetime = db.Column(db.Text, nullable = False)
     end_datetime = db.Column(db.Text, nullable = False)
     accepted = db.Column(db.Boolean, nullable = False)

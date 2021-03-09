@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy 
-from create_database import db
+from create_database import db, Account, Internship, Event
 
 
 app = Flask(__name__)
