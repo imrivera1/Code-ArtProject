@@ -47,6 +47,10 @@ class AccountModify(Resource):
     parser.add_argument('first_name', type=str)
     parser.add_argument('last_name', type=str)
     parser.add_argument('email', type=str)
+    parser.add_argument('grade', type=str)
+    parser.add_argument('age', type=int)
+    parser.add_argument('gender', type=str)
+    parser.add_argument('attributes', type=str)
     parser.add_argument('password', type=str)
     parser.add_argument('auth', type=str)
 
@@ -66,6 +70,10 @@ class AccountModify(Resource):
             mod_acc.first_name = args["first_name"]
             mod_acc.last_name = args["last_name"]
             mod_acc.email = str( args["email"] ).lower()
+            mod_acc.grade = args["grade"]
+            mod_acc.age = args["age"]
+            mod_acc.gender = args["gender"]
+            mod_acc.attributes = args["attributes"]
             mod_acc.password = generate_password_hash(args["password"], method='SHA512')
 
             db.session.commit()
@@ -88,8 +96,10 @@ class AccountInfo(Resource):
             if not acc:
                 return {"msg": "Invalid Account"}, 400
             
-            return {"is_admin": acc.is_admin, "is_student": acc.is_student, "first_name": acc.first_name, 
-            "last_name": acc.last_name, "email": acc.email, "success": True}, 200 
+            return {"is_admin": acc.is_admin, "is_student": acc.is_student, "first_name": acc.first_name, "last_name": acc.last_name, 
+            "email": acc.email, "grade": acc.grade, "age": acc.age, "gender": acc.gender, "attributes": acc.attributes, 
+            "success": True}, 200 
+            
         except Exception as exe:
             print(exe)
             return {"msg": "Incorrect Request", "success": False}, 400
@@ -102,6 +112,10 @@ class AccountCreate(Resource):
     parser.add_argument('first_name', type=str)
     parser.add_argument('last_name', type=str)
     parser.add_argument('email', type=str)
+    parser.add_argument('grade', type=str)
+    parser.add_argument('age', type=int)
+    parser.add_argument('gender', type=str)
+    parser.add_argument('attributes', type=str)
     parser.add_argument('password', type=str)
 
     def post(self):
@@ -113,8 +127,9 @@ class AccountCreate(Resource):
             print("Attempting to create account: ", str(args["email"]).lower() )
 
             create_acc = Account(id=str(created_id), is_admin=args["is_admin"], is_student=args["is_student"], 
-                first_name=args["first_name"], last_name=args["last_name"], email=args["email"],
-                    password=generate_password_hash(args["password"], method='SHA512') )
+                first_name=args["first_name"], last_name=args["last_name"], email=args["email"], grade=args["grade"], 
+                age=args["age"], gender=args["gender"], attributes=args["attributes"], password=generate_password_hash(args["password"], 
+                method='SHA512') )
             
             db.session.add(create_acc)
             db.session.commit()

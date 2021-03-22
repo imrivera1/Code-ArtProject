@@ -14,6 +14,10 @@ class Account(db.Model, UserMixin):
     first_name: str
     last_name: str
     email: str
+    grade: str
+    age: int
+    gender: str
+    attributes: str
     """
     id = db.Column(db.Text, primary_key = True, unique = True, nullable = False)
     is_admin = db.Column(db.Boolean, nullable = False)
@@ -21,6 +25,10 @@ class Account(db.Model, UserMixin):
     first_name = db.Column(db.Text, nullable = False)
     last_name = db.Column(db.Text, nullable = False)
     email = db.Column(db.Text, unique=True,nullable = False)
+    grade = db.Column(db.Text, nullable = False)
+    age =  db.Column(db.Integer)
+    gender = db.Column(db.Text, nullable = False)
+    attributes = db.Column(db.Text, nullable = False)
     password = db.Column(db.Text, nullable = False)
 
     # relationships
