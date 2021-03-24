@@ -1,7 +1,7 @@
 from flask import Flask, send_from_directory, request, Blueprint, render_template, redirect, url_for
 from flask_login import UserMixin, LoginManager, login_user, login_required,logout_user, current_user
 from flask_admin.contrib.sqla import ModelView
-from create_database import db, Account
+from databasedetails import db, Account
 from flask_admin import Admin
 import uuid
 

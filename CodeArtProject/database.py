@@ -3,7 +3,7 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy
 from login import login_manager, login_blueprint, AdminModelViewAcc, AdminModelViewIntern, AdminModelViewEvent 
-from create_database import db, Account 
+from databasedetails import db, Account 
 #, Internship, Event
 from flask_login import UserMixin, LoginManager, login_user, login_required, logout_user, current_user
 from flask_bootstrap import Bootstrap
