@@ -1,12 +1,12 @@
 from flask import Flask
+from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy 
-from create_database import db, Account, Internship, Event
+from Code-ArtProject.create_database import db, Account, Internship, Event
 from login import login_manager, login_blueprint, AdminModelViewAcc, AdminModelViewIntern, AdminModelViewEvent
 from flask_login import UserMixin, LoginManager, login_user, login_required, logout_user, current_user
-from flask_admin import Admin
 from flask_bootstrap import Bootstrap
-import account as account
+import endpoints.account as account
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///databaseFiles/ca_database.db'

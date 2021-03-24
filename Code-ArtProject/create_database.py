@@ -32,14 +32,15 @@ class Account(db.Model, UserMixin):
     password = db.Column(db.Text, nullable = False)
 
     # relationships
-    internships = db.relationship("Internship", backref='student', lazy=dynamic, foreign_key='Internship.student_id')
-    events = db.relationship("Event", backref='student', lazy=dynamic, foreign_key='Event.student_id')
+    internships = db.relationship("Internship", backref='student', lazy='dynamic', foreign_keys='Internship.student_id')
+    events = db.relationship("Event", backref='student', lazy='dynamic', foreign_keys='Event.student_id')
 
 
 class Internship(db.Model):
     __tablename__ = 'internship'
     """
     id: int
+    student_id: int
     location: str
     company: str
     phone_number: str
@@ -48,6 +49,7 @@ class Internship(db.Model):
     accepted: bool
     """
     id = db.Column(db.Text, primary_key = True, unique = True, nullable = False)
+    student_id = db.Column(db.Text, db.ForeignKey('account.id'))
     location = db.Column(db.Text)
     lat = db.Column(db.Float)
     long = db.Column(db.Float)
@@ -64,6 +66,7 @@ class Event(db.Model):
     __tablename__ = 'event'
     """
     id: int
+    student_id: int
     organizers: str
     location: str
     email: str
@@ -72,6 +75,7 @@ class Event(db.Model):
     """
 
     id = db.Column(db.Text, primary_key = True, unique = True, nullable = False)
+    student_id = db.Column(db.Text, db.ForeignKey('account.id'))
     location = db.Column(db.Text)
     lat = db.Column(db.Float)
     long = db.Column(db.Float)
