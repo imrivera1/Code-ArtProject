@@ -24,9 +24,9 @@ class Account(db.Model, UserMixin):
     is_student = db.Column(db.Boolean, nullable = False)
     first_name = db.Column(db.Text, nullable = False)
     last_name = db.Column(db.Text, nullable = False)
-    email = db.Column(db.Text, unique=True,nullable = False)
+    email = db.Column(db.Text, unique=True, nullable = False)
     grade = db.Column(db.Text, nullable = False)
-    age =  db.Column(db.Integer)
+    age =  db.Column(db.Integer, nullable = False)
     gender = db.Column(db.Text, nullable = False)
     attributes = db.Column(db.Text, nullable = False)
     password = db.Column(db.Text, nullable = False)
@@ -43,46 +43,44 @@ class Internship(db.Model):
     student_id: int
     location: str
     company: str
-    phone_number: str
-    email: str
+    role: str
+    link: str
     details: str
     accepted: bool
     """
     id = db.Column(db.Text, primary_key = True, unique = True, nullable = False)
     student_id = db.Column(db.Text, db.ForeignKey('account.id'))
-    location = db.Column(db.Text)
-    lat = db.Column(db.Float)
-    long = db.Column(db.Float)
+    location = db.Column(db.Text, nullable = False)
     company = db.Column(db.Text, nullable = False)
-    phone_number = db.Column(db.Text)
-    email = db.Column(db.Text, unique=True,nullable = False)
+    role = db.Column(db.Text, nullable = False)
+    link = db.Column(db.Text, nullable = False)
     start_datetime = db.Column(db.Text, nullable = False)
     end_datetime = db.Column(db.Text, nullable = False)
     accepted = db.Column(db.Boolean, nullable = False)
     canceled = db.Column(db.Boolean, nullable = False)
-    details = db.Column(db.Text)
+    details = db.Column(db.Text, nullable = False)
 
 class Event(db.Model):
-    __tablename__ = 'event'
+    __tablename__ = 'event' 
     """
     id: int
     student_id: int
+    event_name: str
     organizers: str
     location: str
-    email: str
+    cost: str
     details: str
     accepted: bool
     """
 
     id = db.Column(db.Text, primary_key = True, unique = True, nullable = False)
     student_id = db.Column(db.Text, db.ForeignKey('account.id'))
-    location = db.Column(db.Text)
-    lat = db.Column(db.Float)
-    long = db.Column(db.Float)
+    event_name = db.Column(db.Text, nullable = False)
     organizers = db.Column(db.Text, nullable = False)
-    email = db.Column(db.Text, unique=True,nullable = False)
+    location = db.Column(db.Text, nullable = False)
+    cost = db.Column(db.Text, nullable = False)
     start_datetime = db.Column(db.Text, nullable = False)
     end_datetime = db.Column(db.Text, nullable = False)
     accepted = db.Column(db.Boolean, nullable = False)
     canceled = db.Column(db.Boolean, nullable = False)
-    details = db.Column(db.Text)
+    details = db.Column(db.Text, nullable = False)

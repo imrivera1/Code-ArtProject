@@ -21,7 +21,7 @@ class AdminModelViewAcc(ModelView):
             return redirect(url_for("login"))
 
 class AdminModelViewIntern(ModelView):
-    column_searchable_list = ["location","company","email", "phone_number"]
+    column_searchable_list = ["location","company"]
 
     def is_accessible(self):
         return current_user.is_authenticated and current_user.is_admin
@@ -31,7 +31,7 @@ class AdminModelViewIntern(ModelView):
             return redirect(url_for("login"))
 
 class AdminModelViewEvent(ModelView):
-    column_searchable_list = ["location","organizers","email"]
+    column_searchable_list = ["location","organizers", "event_name"]
 
     def is_accessible(self):
         return current_user.is_authenticated and current_user.is_admin
