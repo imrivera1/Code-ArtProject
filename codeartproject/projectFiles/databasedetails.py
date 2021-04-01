@@ -57,7 +57,7 @@ class Internship(db.Model):
     start_datetime = db.Column(db.Text, nullable = False)
     end_datetime = db.Column(db.Text, nullable = False)
     accepted = db.Column(db.Boolean, nullable = False)
-    canceled = db.Column(db.Boolean, nullable = False)
+    cancelled = db.Column(db.Boolean, nullable = False)
     details = db.Column(db.Text, nullable = False)
 
 class Event(db.Model):
@@ -82,5 +82,5 @@ class Event(db.Model):
     start_datetime = db.Column(db.Text, nullable = False)
     end_datetime = db.Column(db.Text, nullable = False)
     accepted = db.Column(db.Boolean, nullable = False)
-    canceled = db.Column(db.Boolean, nullable = False)
+    cancelled = db.Column(db.Boolean, nullable = False)
     details = db.Column(db.Text, nullable = False)
