@@ -10,6 +10,12 @@ app_api = None
 
 def create_api(app):
     app_api = Api(app)
+    app_api.add_resource(EventInfo, "/eventinfo")
+    app_api.add_resource(EventModify, "/eventmodify")
+    app_api.add_resource(EventCreate, "/eventcreate")
+    app_api.add_resource(EventDelete, "/eventdelete")
+    app_api.add_resource(EventAccept, "/eventaccept")
+    app_api.add_resource(EventCancel, "/eventcancel")
 
 
 class EventModify(Resource):
@@ -23,28 +29,33 @@ class EventModify(Resource):
     parser.add_argument('start_datetime', type=str)
     parser.add_argument('end_datetime', type=str)
     parser.add_argument('details', type=str)
+    parser.add_argument('event_id', type=str)
 
     def put(self):
         print(request.data)
 
         try:
             args = self.parser.parse_args()
-            if not verify_auth(args['auth'], args['id']):
-                return {"msg": "Invalid id or Auth Token", "success": False}, 400
-            
-            created_id = uuid.uuid4()
-            mod_event = Event.query.get(args["id"])
+            if verify_auth(args['auth'], args['id']):
 
-            mod_event.event_name = args["event_name"]
-            mod_event.organizers = args["organizers"]
-            mod_event.location = args["location"]
-            mod_event.cost = args["cost"]
-            mod_event.start_datetime = args["start_datetime"]
-            mod_event.end_datetime = args["end_datetime"]
-            mod_event.details = args["details"]
+                event = Event.query.get(args["event_id"])
 
-            db.session.commit()
-            return {"success": True}, 201
+                if event:
+
+                    event.event_name = args["event_name"]
+                    event.organizers = args["organizers"]
+                    event.location = args["location"]
+                    event.cost = args["cost"]
+                    event.start_datetime = args["start_datetime"]
+                    event.end_datetime = args["end_datetime"]
+                    event.details = args["details"]
+
+                    db.session.commit()
+                    return {"success": True}, 201
+                else:
+                    return {"msg":"Invalid Event","success":False}, 400
+            else:
+                return {"msg": "Invalid ID or Auth Token", "success": False}, 400
 
         except Exception as exe:
             print(exe)
@@ -68,8 +79,8 @@ class EventInfo(Resource):
                     return {"event_name": event.event_name, "organizers": event.organizers, "location": event.location, "cost": event.cost,
                     "start_datetime": event.start_datetime, "end_datetime": event.end_datetime, "accepted": event.accepted, 
                     "cancelled": event.cancelled, "details": event.details, "success": True}, 200
-
-            return {"msg": "Invalid ID or Auth Token", "success": False}, 400
+            else:
+                return {"msg": "Invalid ID or Auth Token", "success": False}, 400
 
         except Exception as exe:
             print(exe)
@@ -151,6 +162,7 @@ class EventAccept(Resource):
             if verify_auth('auth', 'id'):
                 event = Event.query.get(args["event_id"])
                 if event:
+
                     event.accepted = True
                     db.session.commit()
 
@@ -175,6 +187,7 @@ class EventCancel(Resource):
             if verify_auth('auth', 'id'):
                 event = Event.query.get(args["event_id"])
                 if event:
+                    
                     event.accepted = False
                     event.cancelled = True
                     db.session.commit()
