@@ -13,7 +13,7 @@ login_blueprint = Blueprint("logins","__logins__")
 
 
 class AdminModelViewAcc(ModelView):
-    column_searchable_list = ["first_name","last_name","email","age","grade"]
+    column_searchable_list = ["first_name","last_name","email","birthday","graduation"]
 
     def is_accessible(self):
         return current_user.is_authenticated and current_user.is_admin
