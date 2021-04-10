@@ -7,6 +7,8 @@ db = SQLAlchemy()
 
 class Account(db.Model, UserMixin):
     __tablename__='account'
+    # Change age to birthday
+    # Change grade to Graduation Year 
     """
     id: int
     isAdmin: bool
