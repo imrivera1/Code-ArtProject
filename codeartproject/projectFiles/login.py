@@ -6,6 +6,8 @@ from flask_admin import Admin
 import uuid
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
+from wtforms.validators import InputRequired, Email, Length
+from wtforms import StringField, PasswordField, BooleanField
 
 login_manager = LoginManager()
 login_manager.login_view = '/login'
