@@ -24,6 +24,7 @@ event.create_api(app)
 #init database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///databaseFiles/ca_database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["SECRET_KEY"] = "hello"
 db.app = app
 db.init_app(app)
 
