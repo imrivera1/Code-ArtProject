@@ -18,6 +18,7 @@ class AdminModelViewAcc(ModelView):
     column_searchable_list = ["first_name","last_name","email","birthday","graduation"]
 
     def is_accessible(self):
+        print("Is Accessible " + current_user.is_authenticated + " " +  current_user.is_admin)
         return current_user.is_authenticated and current_user.is_admin
 
     def _handle_view(self, name, **kwargs):
