@@ -11,7 +11,7 @@ import endpoints.internships as internship
 import endpoints.events as event
 
 #init app
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 
 #bootstrap
 Bootstrap(app)
