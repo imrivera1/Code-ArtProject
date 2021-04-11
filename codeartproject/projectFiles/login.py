@@ -5,6 +5,7 @@ from databasedetails import db, Account
 from flask_admin import Admin
 import uuid
 from flask_wtf import FlaskForm
+from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 from wtforms import StringField, PasswordField, BooleanField
