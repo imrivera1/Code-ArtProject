@@ -16,8 +16,8 @@ class Account(db.Model, UserMixin):
     first_name: str
     last_name: str
     email: str
-    grade: str
-    age: str
+    graduation: str
+    birthday: str
     gender: str
     attributes: str
     """
@@ -27,8 +27,8 @@ class Account(db.Model, UserMixin):
     first_name = db.Column(db.Text, nullable = False)
     last_name = db.Column(db.Text, nullable = False)
     email = db.Column(db.Text, unique=True, nullable = False)
-    grade = db.Column(db.Text, nullable = False)
-    age =  db.Column(db.Text, nullable = False)
+    graduation = db.Column(db.Text, nullable = False)
+    birthday =  db.Column(db.Text, nullable = False)
     gender = db.Column(db.Text, nullable = False)
     attributes = db.Column(db.Text, nullable = False)
     password = db.Column(db.Text, nullable = False)
