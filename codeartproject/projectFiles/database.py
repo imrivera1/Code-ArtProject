@@ -39,6 +39,7 @@ admin = Admin(app, name = "Admin", url = "/admin", endpoint = "admin", template_
 admin.add_view(AdminModelViewAcc(Account, db.session))
 admin.add_view(AdminModelViewIntern(Internship, db.session))
 admin.add_view(AdminModelViewEvent(Event, db.session))
+admin.add_view(AdminModelViewLogout(Logout, db.session))
 
 @app.route('/')
 def home():

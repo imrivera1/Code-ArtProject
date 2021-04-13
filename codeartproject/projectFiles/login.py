@@ -23,7 +23,7 @@ class AdminModelViewAcc(ModelView):
 
     def _handle_view(self, name, **kwargs):
         if not self.is_accessible():
-            return redirect(url_for("login"))
+            return redirect(url_for("login", next=request.url))
 
 class AdminModelViewIntern(ModelView):
     column_searchable_list = ["location","company"]
@@ -33,7 +33,7 @@ class AdminModelViewIntern(ModelView):
 
     def _handle_view(self, name, **kwargs):
         if not self.is_accessible():
-            return redirect(url_for("login"))
+            return redirect(url_for("login", next=request.url))
 
 class AdminModelViewEvent(ModelView):
     column_searchable_list = ["location","organizers", "event_name"]
@@ -43,7 +43,16 @@ class AdminModelViewEvent(ModelView):
 
     def _handle_view(self, name, **kwargs):
         if not self.is_accessible():
-            return redirect(url_for("login"))
+            return redirect(url_for("login", next=request.url))
+
+class AdminModelViewLogout(ModelView):
+
+    def is_accessible(self):
+        return logout()
+
+    def _handle_view(self, name, **kwargs):
+        if not self.is_accessible():
+            return redirect(url_for("login", next=request.url))
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[InputRequired(), Length(min=4,max=64)])
