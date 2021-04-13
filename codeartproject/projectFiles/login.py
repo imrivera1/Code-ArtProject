@@ -49,7 +49,12 @@ class AdminModelViewEvent(ModelView):
 class AdminViewLogout(BaseView):
     @expose('/')
     def is_accessible(self):
-        return logout()
+        if current_user.is_authenticated and current_user.is_admin:
+            return logout()
+
+    def _handle_view(self, name, **kwargs):
+        if not self.is_accessible():
+            return redirect(url_for("login"))
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[InputRequired(), Length(min=4,max=64)])
