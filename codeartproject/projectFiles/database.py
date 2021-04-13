@@ -4,7 +4,6 @@ from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy
 from login import login_manager, login_blueprint, AdminModelViewAcc, AdminModelViewIntern, AdminModelViewEvent 
 from databasedetails import db, Account, Internship, Event
-from admin_credentials import admin
 from flask_login import UserMixin, LoginManager, login_user, login_required, logout_user, current_user
 from flask_bootstrap import Bootstrap
 import endpoints.account as account
@@ -36,7 +35,7 @@ login_manager.init_app(app)
 app.register_blueprint(login_blueprint)
 
 #admin dashboard
-admin = Admin(app, name = admin.first_name, url = "/admin", endpoint = "admin", template_mode="bootstrap3")
+admin = Admin(app, name = "Admin", url = "/admin", endpoint = "admin", template_mode="bootstrap3")
 admin.add_view(AdminModelViewAcc(Account, db.session))
 admin.add_view(AdminModelViewIntern(Internship, db.session))
 admin.add_view(AdminModelViewEvent(Event, db.session))
