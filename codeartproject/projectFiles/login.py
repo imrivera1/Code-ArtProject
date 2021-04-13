@@ -1,4 +1,5 @@
 from flask import Flask, flash, send_from_directory, request, Blueprint, render_template, redirect, url_for
+from flask.ext.admin import BaseView, expose
 from flask_login import UserMixin, LoginManager, login_user, login_required,logout_user, current_user
 from flask_admin.contrib.sqla import ModelView
 from databasedetails import db, Account
