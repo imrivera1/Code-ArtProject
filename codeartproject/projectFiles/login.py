@@ -1,9 +1,8 @@
 from flask import Flask, flash, send_from_directory, request, Blueprint, render_template, redirect, url_for
-from flask.ext.admin import BaseView, expose
 from flask_login import UserMixin, LoginManager, login_user, login_required,logout_user, current_user
 from flask_admin.contrib.sqla import ModelView
 from databasedetails import db, Account
-from flask_admin import Admin
+from flask_admin import Admin, BaseView, expose
 import uuid
 from flask_wtf import FlaskForm
 from werkzeug.security import generate_password_hash, check_password_hash
