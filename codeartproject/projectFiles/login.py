@@ -50,7 +50,7 @@ class AdminViewLogout(BaseView):
     @expose('/')
     def is_accessible(self):
         if current_user.is_authenticated and current_user.is_admin:
-            return logout()
+            logout()
 
     def _handle_view(self, name, **kwargs):
         if not self.is_accessible():
