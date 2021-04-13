@@ -1,9 +1,10 @@
-from flask import Flask
+from flask import Flask, session, render_template, send_from_directory
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy
 from login import login_manager, login_blueprint, AdminModelViewAcc, AdminModelViewIntern, AdminModelViewEvent 
 from databasedetails import db, Account, Internship, Event
+from admin_credentials import admin
 from flask_login import UserMixin, LoginManager, login_user, login_required, logout_user, current_user
 from flask_bootstrap import Bootstrap
 import endpoints.account as account
@@ -35,7 +36,18 @@ login_manager.init_app(app)
 app.register_blueprint(login_blueprint)
 
 #admin dashboard
-admin = Admin(app, name = 'Admin', url = "/admin", endpoint = "admin", template_mode="bootstrap3")
+admin = Admin(app, name = admin.first_name, url = "/admin", endpoint = "admin", template_mode="bootstrap3")
 admin.add_view(AdminModelViewAcc(Account, db.session))
 admin.add_view(AdminModelViewIntern(Internship, db.session))
 admin.add_view(AdminModelViewEvent(Event, db.session))
+
+@app.route('/')
+def home():
+    return render_template("signin.html")
+
+@app.route('/', defaults={"path":''})
+def static_files(path=None):
+    print("path:",path)
+    if(path=="/" or path==""):
+        return redirect("/signin.html")
+    return send_from_directory('static',path)
