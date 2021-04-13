@@ -55,7 +55,7 @@ https://templatemo.com/tm-538-digital-trend
           <form action="/login" method="POST" class="contact-form" data-aos-delay="300" role="form">
             <div class="row">
               <div class="col-lg-6 col-12">
-                {{ form.hidden_tag() }}
+                {{ login_form.hidden_tag() }}
                 {{ wtf.form_field(login_form.email) }}
                 {{ wtf.form_field(login_form.password) }}
               </div>
