@@ -2,7 +2,7 @@ from flask import Flask, flash, send_from_directory, request, Blueprint, render_
 from flask_login import UserMixin, LoginManager, login_user, login_required,logout_user, current_user
 from flask_admin.contrib.sqla import ModelView
 from databasedetails import db, Account
-from flask_admin import Admin, BaseView, expose
+from flask_admin import Admin, BaseView, expose, MenuLink
 import uuid
 from flask_wtf import FlaskForm
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -23,7 +23,7 @@ class AdminModelViewAcc(ModelView):
 
     def _handle_view(self, name, **kwargs):
         if not self.is_accessible():
-            return redirect(url_for("login"))
+            return redirect(url_for("login", next=request.url))
 
 class AdminModelViewIntern(ModelView):
     column_searchable_list = ["location","company"]
@@ -33,7 +33,7 @@ class AdminModelViewIntern(ModelView):
 
     def _handle_view(self, name, **kwargs):
         if not self.is_accessible():
-            return redirect(url_for("login"))
+            return redirect(url_for("login", next=request.url))
 
 class AdminModelViewEvent(ModelView):
     column_searchable_list = ["location","organizers", "event_name"]
@@ -43,7 +43,7 @@ class AdminModelViewEvent(ModelView):
 
     def _handle_view(self, name, **kwargs):
         if not self.is_accessible():
-            return redirect(url_for("login"))
+            return redirect(url_for("login", next=request.url))
 
 
 class AdminViewLogout(BaseView):
@@ -54,7 +54,11 @@ class AdminViewLogout(BaseView):
 
     def _handle_view(self, name, **kwargs):
         if not self.is_accessible():
-            return redirect(url_for("login"))
+            return redirect(url_for("login", next=request.url))
+
+class AdminLogoutLink(MenuLink):
+    def is_accessible(self):
+        logout()
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[InputRequired(), Length(min=4,max=64)])
