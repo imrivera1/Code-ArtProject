@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory, request, Blueprint, render_template, redirect, url_for
+from flask import Flask, flash, send_from_directory, request, Blueprint, render_template, redirect, url_for
 from flask_login import UserMixin, LoginManager, login_user, login_required,logout_user, current_user
 from flask_admin.contrib.sqla import ModelView
 from databasedetails import db, Account
@@ -45,6 +45,10 @@ class AdminModelViewEvent(ModelView):
         if not self.is_accessible():
             return redirect(url_for("login"))
 
+class LoginForm(FlaskForm):
+    email = StringField('Email', validators=[InputRequired(), Length(min=4,max=64)])
+    password = PasswordField('Password', validators=[InputRequired(), Length(min=8,max=64)])
+
 @login_manager.user_loader
 def load_user(id):
     return Account.query.get(id)
@@ -61,9 +65,11 @@ def login():
             if check_password_hash(user.password,str(form.password.data)):
                 login_user(user)
                 return redirect("/admin")
-            return "Error: Incorrect Credentials"
-        return "Admin Account Does Not Exist"
-    return render_template("signin.html", form=form)
+            flash("Error: Incorrect Credentials")
+            return redirect("signin.html")
+        flash("Admin Account Does Not Exist")
+        return redirect("signin.html")
+    return render_template("signin.html", login_form=form)
 
 @login_blueprint.route('/logout')
 @login_blueprint.route('/logout.html')
@@ -71,9 +77,3 @@ def login():
 def logout():
     logout_user()
     return redirect('/signin.html')
-
-class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[InputRequired(), Length(min=4,max=64)])
-    password = PasswordField('Password', validators=[InputRequired(), Length(min=8,max=64)])
-
-
