@@ -40,7 +40,7 @@ admin.add_view(AdminModelViewAcc(Account, db.session))
 admin.add_view(AdminModelViewIntern(Internship, db.session))
 admin.add_view(AdminModelViewEvent(Event, db.session))
 #admin.add_view(AdminViewLogout(name="Logout"))
-admin.add_link(AdminLogoutLink(name="Logout", category='', url="/signin.html"))
+#admin.add_link(AdminLogoutLink(name="Logout", category='', url="/signin.html"))
 
 @app.route('/')
 def home():
