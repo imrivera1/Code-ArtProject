@@ -50,5 +50,5 @@ admin.add_view(AdminModelViewEvent(Event, db.session))
 def static_files(path=None):
     print("path:",path)
     if(path=="/" or path==""):
-        return redirect(url_for("login"))
+        return redirect("/login")
     return send_from_directory('static',path)
