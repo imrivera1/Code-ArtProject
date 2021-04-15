@@ -1,5 +1,4 @@
-from flask import Flask, flash, send_from_directory, request, Blueprint, render_template, redirect, url_for, make_response, Response
-from flask.json import jsonify
+from flask import Flask, flash, send_from_directory, request, Blueprint, render_template, redirect, url_for
 from flask_login import UserMixin, LoginManager, login_user, login_required,logout_user, current_user
 from flask_admin.contrib.sqla import ModelView
 from databasedetails import db, Account
@@ -82,10 +81,10 @@ def login():
             if check_password_hash(user.password,str(form.password.data)):
                 login_user(user)
                 return redirect("/admin")
-            error = make_response(jsonify(message="Error: Incorrect Credentials"), 400)
-            return redirect("/login", Response=error)
-        error = make_response(jsonify(message="Admin Account Does Not Exist"), 400)
-        return redirect("/login", Response=error)
+            log_error = "Error: Incorrect Credentials"
+            return render_template("signin.html", error=log_error)
+        log_error = "Admin Account Does Not Exist"
+        return render_template("signin.html", error=log_error)
     return render_template("signin.html", login_form=form)
 
 @login_blueprint.route('/logout')
