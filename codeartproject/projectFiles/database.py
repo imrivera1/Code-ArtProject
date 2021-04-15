@@ -1,4 +1,4 @@
-from flask import Flask, session, render_template, send_from_directory
+from flask import Flask, session, render_template, send_from_directory, redirect
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy
