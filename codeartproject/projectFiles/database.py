@@ -42,9 +42,9 @@ admin.add_view(AdminModelViewEvent(Event, db.session))
 #admin.add_view(AdminViewLogout(name="Logout"))
 #admin.add_link(AdminLogoutLink(name="Logout", category='', url="/signin.html"))
 
-@app.route('/')
-def home():
-    return render_template("signin.html")
+#@app.route('/')
+#def home():
+    #return render_template("signin.html")
 
 @app.route('/', defaults={"path":''})
 def static_files(path=None):
