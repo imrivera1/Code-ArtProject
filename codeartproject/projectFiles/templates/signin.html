@@ -58,6 +58,9 @@ https://templatemo.com/tm-538-digital-trend
                 {{ login_form.hidden_tag() }}
                 {{ wtf.form_field(login_form.email) }}
                 {{ wtf.form_field(login_form.password) }}
+
+                {{ error|safe }}
+                
               </div>
 
             </div>
