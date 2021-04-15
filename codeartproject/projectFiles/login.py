@@ -83,9 +83,9 @@ def login():
                 login_user(user)
                 return redirect("/admin")
             error = make_response(jsonify(message="Error: Incorrect Credentials"), 400)
-            return redirect("/login", error)
+            return redirect("/login", response=error)
         error = make_response(jsonify(message="Admin Account Does Not Exist"), 400)
-        return redirect("/login", error)
+        return redirect("/login", response=error)
     return render_template("signin.html", login_form=form)
 
 @login_blueprint.route('/logout')
