@@ -1,4 +1,4 @@
-from flask import Flask, session, render_template, send_from_directory, redirect
+from flask import Flask, session, render_template, send_from_directory, redirect, url_for
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy
@@ -50,5 +50,5 @@ admin.add_view(AdminModelViewEvent(Event, db.session))
 def static_files(path=None):
     print("path:",path)
     if(path=="/" or path==""):
-        return redirect("/signin.html")
+        return redirect(url_for("login"))
     return send_from_directory('static',path)
