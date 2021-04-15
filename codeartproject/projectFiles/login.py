@@ -83,7 +83,7 @@ def login():
                 return redirect("/admin")
             log_error = '<font color="red">' + "Error: Incorrect Credentials" + '</font>'
             return render_template("signin.html", login_form=form, error=log_error)
-        log_error = <'font color="red">' + "Admin Account Does Not Exist" + '</font>'
+        log_error = '<font color="red">' + "Admin Account Does Not Exist" + '</font>'
         return render_template("signin.html", login_form=form, error=log_error)
     return render_template("signin.html", login_form=form)
 
