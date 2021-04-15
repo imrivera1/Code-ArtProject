@@ -82,9 +82,9 @@ def login():
                 login_user(user)
                 return redirect("/admin")
             log_error = "Error: Incorrect Credentials"
-            return render_template("signin.html", error=log_error)
+            return render_template("signin.html", login_form=form, error=log_error)
         log_error = "Admin Account Does Not Exist"
-        return render_template("signin.html", error=log_error)
+        return render_template("signin.html", login_form=form, error=log_error)
     return render_template("signin.html", login_form=form)
 
 @login_blueprint.route('/logout')
