@@ -24,7 +24,7 @@ class AdminModelViewAcc(ModelView):
 
     def _handle_view(self, name, **kwargs):
         if not self.is_accessible():
-            return redirect(url_for("login", next=request.url))
+            return redirect("/login")
 
 class AdminModelViewIntern(ModelView):
     column_searchable_list = ["location","company"]
@@ -34,7 +34,7 @@ class AdminModelViewIntern(ModelView):
 
     def _handle_view(self, name, **kwargs):
         if not self.is_accessible():
-            return redirect(url_for("login", next=request.url))
+            return redirect("/login")
 
 class AdminModelViewEvent(ModelView):
     column_searchable_list = ["location","organizers", "event_name"]
@@ -44,7 +44,7 @@ class AdminModelViewEvent(ModelView):
 
     def _handle_view(self, name, **kwargs):
         if not self.is_accessible():
-            return redirect(url_for("login", next=request.url))
+            return redirect("/login")
 
 
 class AdminViewLogout(BaseView):
@@ -55,7 +55,7 @@ class AdminViewLogout(BaseView):
 
     def _handle_view(self, name, **kwargs):
         if not self.is_accessible():
-            return redirect(url_for("login", next=request.url))
+            return redirect("/login")
 
 class AdminLogoutLink(MenuLink):
     def is_accessible(self):
@@ -81,8 +81,10 @@ def login():
             if check_password_hash(user.password,str(form.password.data)):
                 login_user(user)
                 return redirect("/admin")
-            return "Error: Incorrect Credentials"
-        return "Admin Account Does Not Exist"
+            flash("Error: Incorrect Credentials")
+            return redirect("/login")
+        flash("Admin Account Does Not Exist")
+        return redirect("/login")
     return render_template("signin.html", login_form=form)
 
 @login_blueprint.route('/logout')

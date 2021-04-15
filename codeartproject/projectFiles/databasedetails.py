@@ -7,8 +7,6 @@ db = SQLAlchemy()
 
 class Account(db.Model, UserMixin):
     __tablename__='account'
-    # Change age to birthday
-    # Change grade to Graduation Year 
     """
     id: int
     isAdmin: bool
@@ -48,7 +46,6 @@ class Internship(db.Model):
     role: str
     link: str
     details: str
-    accepted: bool
     """
     id = db.Column(db.Text, primary_key = True, unique = True, nullable = False)
     student_id = db.Column(db.Text, db.ForeignKey('account.id'))
@@ -58,8 +55,6 @@ class Internship(db.Model):
     link = db.Column(db.Text, nullable = False)
     start_datetime = db.Column(db.Text, nullable = False)
     end_datetime = db.Column(db.Text, nullable = False)
-    accepted = db.Column(db.Boolean, nullable = False)
-    cancelled = db.Column(db.Boolean, nullable = False)
     details = db.Column(db.Text, nullable = False)
 
 class Event(db.Model):
@@ -72,7 +67,6 @@ class Event(db.Model):
     location: str
     cost: str
     details: str
-    accepted: bool
     """
 
     id = db.Column(db.Text, primary_key = True, unique = True, nullable = False)
@@ -83,6 +77,4 @@ class Event(db.Model):
     cost = db.Column(db.Text, nullable = False)
     start_datetime = db.Column(db.Text, nullable = False)
     end_datetime = db.Column(db.Text, nullable = False)
-    accepted = db.Column(db.Boolean, nullable = False)
-    cancelled = db.Column(db.Boolean, nullable = False)
     details = db.Column(db.Text, nullable = False)

@@ -14,8 +14,6 @@ def create_api(app):
     app_api.add_resource(EventModify, "/eventmodify")
     app_api.add_resource(EventCreate, "/eventcreate")
     app_api.add_resource(EventDelete, "/eventdelete")
-    app_api.add_resource(EventAccept, "/eventaccept")
-    app_api.add_resource(EventCancel, "/eventcancel")
 
 
 class EventModify(Resource):
@@ -77,8 +75,8 @@ class EventInfo(Resource):
                     print("Event Exists")
 
                     return {"event_name": event.event_name, "organizers": event.organizers, "location": event.location, "cost": event.cost,
-                    "start_datetime": event.start_datetime, "end_datetime": event.end_datetime, "accepted": event.accepted, 
-                    "cancelled": event.cancelled, "details": event.details, "success": True}, 200
+                    "start_datetime": event.start_datetime, "end_datetime": event.end_datetime, "details": event.details, 
+                    "success": True}, 200
             else:
                 return {"msg": "Invalid ID or Auth Token", "success": False}, 400
 
@@ -109,8 +107,7 @@ class EventCreate(Resource):
                 acc = Account.query.get( str( args["id"] ) )
                 if acc:
                     event = Event(id=event_id, event_name=args["event_name"], organizers=args["organizers"], location=args["location"], 
-                    cost=args["cost"], start_datetime=args["start_datetime"], end_datetime=args["end_datetime"], accepted=False, 
-                    cancelled=False, details=args["details"])
+                    cost=args["cost"], start_datetime=args["start_datetime"], end_datetime=args["end_datetime"], details=args["details"])
 
                     db.session.add(event)
                     db.session.commit()
@@ -146,57 +143,6 @@ class EventDelete(Resource):
                     return {"msg":"No Account","success":False}, 400
             else:
                 return {"msg":"Event Could Not Be Deleted","success":False}, 400
-        except Exception as exe:
-            print(exe)
-            return {"msg": "Incorrect Event Parameters", "success": False}, 400
-
-class EventAccept(Resource):
-    def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('id', type=str)
-        parser.add_argument('auth', type=str)
-        parser.add_argument('event_id', type=str)
-
-        try:
-            args = parser.parse_args()
-            if verify_auth('auth', 'id'):
-                event = Event.query.get(args["event_id"])
-                if event:
-
-                    event.accepted = True
-                    db.session.commit()
-
-                    return {"success": True}, 201
-                else:
-                    return {"msg":"Invalid Event","success":False}, 400
-            else:
-                return {"msg":"Invalid ID or Auth Token","success":False}, 400
-        except Exception as exe:
-            print(exe)
-            return {"msg": "Incorrect Event Parameters", "success": False}, 400
-
-class EventCancel(Resource):
-    def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('id', type=str)
-        parser.add_argument('auth', type=str)
-        parser.add_argument('event_id', type=str)
-
-        try:
-            args = parser.parse_args()
-            if verify_auth('auth', 'id'):
-                event = Event.query.get(args["event_id"])
-                if event:
-                    
-                    event.accepted = False
-                    event.cancelled = True
-                    db.session.commit()
-
-                    return {"success": True}, 201
-                else:
-                    return {"msg":"Invalid Event","success":False}, 400
-            else:
-                return {"msg":"Invalid ID or Auth Token","success":False}, 400
         except Exception as exe:
             print(exe)
             return {"msg": "Incorrect Event Parameters", "success": False}, 400

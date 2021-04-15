@@ -24,7 +24,7 @@ event.create_api(app)
 #init database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///databaseFiles/ca_database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config["SECRET_KEY"] = "hello"
+app.config["SECRET_KEY"] = "@fJ99YM20bAq"
 db.app = app
 db.init_app(app)
 
@@ -41,10 +41,6 @@ admin.add_view(AdminModelViewIntern(Internship, db.session))
 admin.add_view(AdminModelViewEvent(Event, db.session))
 #admin.add_view(AdminViewLogout(name="Logout"))
 #admin.add_link(AdminLogoutLink(name="Logout", category='', url="/signin.html"))
-
-#@app.route('/')
-#def home():
-    #return render_template("signin.html")
 
 @app.route('/', defaults={"path":''})
 def static_files(path=None):

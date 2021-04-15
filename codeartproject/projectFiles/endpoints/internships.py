@@ -14,8 +14,6 @@ def create_api(app):
     app_api.add_resource(InternModify, "/internmodify")
     app_api.add_resource(InternCreate, "/interncreate")
     app_api.add_resource(InternDelete, "/interndelete")
-    app_api.add_resource(InternAccept, "/internaccept")
-    app_api.add_resource(InternCancel, "/interncancel")
     
 class InternModify(Resource):
     parser = reqparse.RequestParser()
@@ -84,8 +82,7 @@ class InternCreate(Resource):
                 acc = Account.query.get( str( args["id"] ) )
                 if acc:
                     internship = Internship(id=intern_id, location=args["location"], company=args["company"], role=args["role"], 
-                    link=args["link"], start_datetime=args["start_datetime"], end_datetime=args["end_datetime"], accepted=False, 
-                    cancelled=False, details=args["details"])
+                    link=args["link"], start_datetime=args["start_datetime"], end_datetime=args["end_datetime"], details=args["details"])
 
                     db.session.add(internship)
                     db.session.commit()
@@ -115,7 +112,7 @@ class InternInfo(Resource):
 
                     return {"location": internship.location, "company": internship.company, "role": internship.role, 
                     "link": internship.link, "start_datetime": internship.start_datetime, "end_datetime": internship.end_datetime, 
-                    "accepted": internship.accepted, "cancelled": internship.cancelled, "details": internship.details, "success": True}, 200
+                    "details": internship.details, "success": True}, 200
             else:
                 return {"msg": "Invalid ID or Auth Token", "success": False}, 400
 
@@ -144,57 +141,6 @@ class InternDelete(Resource):
                     return {"msg":"No Account","success":False}, 400
             else:
                 return {"msg":"Internship Could Not Be Deleted","success":False}, 400
-        except Exception as exe:
-            print(exe)
-            return {"msg": "Incorrect Internship Parameters", "success": False}, 400
-
-class InternAccept(Resource):
-    def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('id', type=str)
-        parser.add_argument('auth', type=str)
-        parser.add_argument('intern_id', type=str)
-
-        try:
-            args = parser.parse_args()
-            if verify_auth('auth', 'id'):
-                internship = Internship.query.get(args["intern_id"])
-                if internship:
-
-                    internship.accepted = True
-                    db.session.commit()
-
-                    return {"success": True}, 201
-                else:
-                    return {"msg":"Invalid Internship","success":False}, 400
-            else:
-                return {"msg":"Invalid ID or Auth Token","success":False}, 400
-        except Exception as exe:
-            print(exe)
-            return {"msg": "Incorrect Internship Parameters", "success": False}, 400
-
-class InternCancel(Resource):
-    def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('id', type=str)
-        parser.add_argument('auth', type=str)
-        parser.add_argument('intern_id', type=str)
-
-        try:
-            args = parser.parse_args()
-            if verify_auth('auth', 'id'):
-                internship = Internship.query.get(args["intern_id"])
-                if internship:
-
-                    internship.accepted = False
-                    internship.cancelled = True
-                    db.session.commit()
-
-                    return {"success": True}, 201
-                else:
-                    return {"msg":"Invalid Internship","success":False}, 400
-            else:
-                return {"msg":"Invalid ID or Auth Token","success":False}, 400
         except Exception as exe:
             print(exe)
             return {"msg": "Incorrect Internship Parameters", "success": False}, 400
