@@ -127,7 +127,7 @@ class AccountCreate(Resource):
             print("Attempting to create account: ", str(args["email"]).lower() )
 
             create_acc = Account(id=str(created_id), is_admin=args["is_admin"], is_student=args["is_student"], 
-                first_name=args["first_name"], last_name=args["last_name"], email=args["email"], graduation=args["graduation"], 
+                first_name=args["first_name"], last_name=args["last_name"], email=str(args["email"]).lower(), graduation=args["graduation"], 
                 birthday=args["birthday"], gender=args["gender"], attributes=args["attributes"], password=generate_password_hash(args["password"], 
                 method='SHA512') )
             
