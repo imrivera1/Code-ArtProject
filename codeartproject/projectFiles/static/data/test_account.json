@@ -7,7 +7,8 @@
       "graduation": "09/21",
       "birthday": "01/01/23",
       "gender": "Other",
-      "attributes": "Somewhere"
+      "attributes": "Somewhere",
+      "password": "testingpass"
     },
     "meta": {},
     "jsonapi": {

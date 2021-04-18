@@ -10,6 +10,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 from wtforms import StringField, PasswordField, BooleanField
+import os
 
 
 login_manager = LoginManager()
