@@ -97,7 +97,7 @@ def login():
                 return redirect("/admin")
             return data #render_template("signin.html", login_form=form, error=log_error)
         return data #render_template("signin.html", login_form=form, error=log_error)
-   return render_template("signin.html", login_form=form)
+    return render_template("signin.html", login_form=form)
 
 @login_blueprint.route('/logout')
 @login_blueprint.route('/logout.html')
