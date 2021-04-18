@@ -86,7 +86,8 @@ def login():
         data = json.load(test_file)
 
     print("BEFORE ENTERING")
-    print(form)
+    print(form.email.data)
+    print(form.password.data)
     if form.validate_on_submit():
         print("DID YOU MAKE IT HERE?")
         user = Account.query.filter_by(email=str(form.email.data).lower()).first()
@@ -96,7 +97,7 @@ def login():
                 return redirect("/admin")
             return data #render_template("signin.html", login_form=form, error=log_error)
         return data #render_template("signin.html", login_form=form, error=log_error)
-    return render_template("signin.html", login_form=form)
+   return render_template("signin.html", login_form=form)
 
 @login_blueprint.route('/logout')
 @login_blueprint.route('/logout.html')
