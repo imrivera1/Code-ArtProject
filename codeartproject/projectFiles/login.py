@@ -60,7 +60,11 @@ class AdminViewLogout(BaseView):
 
 class AdminLogoutLink(MenuLink):
     def is_accessible(self):
-        logout()
+        return current_user.is_authenticated and current_user.is_admin
+
+    def _handle_view(self, name, **kwargs):
+        if not self.is_accessible():
+            return redirect("/login")
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[InputRequired(), Length(min=4,max=64)])
