@@ -85,7 +85,8 @@ def login():
     with open(filename) as test_file:
         data = json.load(test_file)
 
-    print("BEFORE ENTERING" + form)
+    print("BEFORE ENTERING")
+    print(form)
     if form.validate_on_submit():
         print("DID YOU MAKE IT HERE?")
         user = Account.query.filter_by(email=str(form.email.data).lower()).first()
