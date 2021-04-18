@@ -21,21 +21,21 @@ class Login(Resource):
         try:
             parser = reqparse.RequestParser()
             parser.add_argument('Email', type=str)
-            parser.add_argument('password', type=str)
+            parser.add_argument('Password', type=str)
             args = parser.parse_args()
 
             print(request.data)
             print("attempting to log in: ", str( args["Email"] ).lower() )
             
-            user = Account.query.filter_by( email=( str( args['email'] ).lower() ) ).first()
+            user = Account.query.filter_by( email=( str( args['Email'] ).lower() ) ).first()
             print(user.password)
             if user:
-                if check_password_hash(user.password, args['password']):
+                if check_password_hash(user.password, args['Password']):
                     user_id = user.id
                     auth_token = str( uuid.uuid4() )
                     live_tokens.append( (auth_token, user_id) )
                     return {'id':user_id, 'auth':auth_token}, 200
-            return 'Bad email or password', 401
+            return 'Incorrect Credentials', 401
         except Exception as exe:
             print(exe)
             return {"msg":"Bad Request"}, 400 
