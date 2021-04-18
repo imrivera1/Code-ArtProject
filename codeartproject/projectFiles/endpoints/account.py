@@ -23,6 +23,9 @@ class Login(Resource):
             parser.add_argument('email', type=str)
             parser.add_argument('password', type=str)
             args = parser.parse_args()
+
+            print(request.data)
+            print("attempting to log in: ", str(args["email"]).lower() )
             
             user = Account.query.filter_by( email=( str( args['email'] ).lower() ) ).first()
             print(user.password)
