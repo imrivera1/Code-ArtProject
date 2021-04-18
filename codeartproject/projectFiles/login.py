@@ -47,17 +47,6 @@ class AdminModelViewEvent(ModelView):
         if not self.is_accessible():
             return redirect("/login")
 
-
-class AdminViewLogout(BaseView):
-    @expose('/')
-    def is_accessible(self):
-        if current_user.is_authenticated and current_user.is_admin:
-            logout()
-
-    def _handle_view(self, name, **kwargs):
-        if not self.is_accessible():
-            return redirect("/login")
-
 class AdminLogoutLink(MenuLink):
     def is_accessible(self):
         return current_user.is_authenticated and current_user.is_admin

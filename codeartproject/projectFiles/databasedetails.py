@@ -31,10 +31,6 @@ class Account(db.Model, UserMixin):
     attributes = db.Column(db.Text, nullable = False)
     password = db.Column(db.Text, nullable = False)
 
-    # relationships
-    #internships = db.relationship("Internship", backref='student', lazy='dynamic', foreign_keys='Internship.student_id')
-    #events = db.relationship("Event", backref='student', lazy='dynamic', foreign_keys='Event.student_id')
-
 
 class Internship(db.Model):
     __tablename__ = 'internship'
