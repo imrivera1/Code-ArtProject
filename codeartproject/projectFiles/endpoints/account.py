@@ -20,12 +20,12 @@ class Login(Resource):
     def post(self):
         try:
             parser = reqparse.RequestParser()
-            parser.add_argument('email', type=str)
+            parser.add_argument('Email', type=str)
             parser.add_argument('password', type=str)
             args = parser.parse_args()
 
             print(request.data)
-            print("attempting to log in: ", str(args["email"]).lower() )
+            print("attempting to log in: ", str( args["Email"] ).lower() )
             
             user = Account.query.filter_by( email=( str( args['email'] ).lower() ) ).first()
             print(user.password)
