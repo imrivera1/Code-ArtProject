@@ -25,7 +25,7 @@ class Login(Resource):
             args = parser.parse_args()
             
             user = Account.query.filter_by( email=( str( args['email'] ).lower() ) ).first()
-            print(user.email)
+            print(user.password)
             if user:
                 if check_password_hash(user.password, args['password']):
                     user_id = user.id
