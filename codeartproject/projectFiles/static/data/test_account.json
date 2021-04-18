@@ -1,0 +1,16 @@
+{
+    "data": {
+      "id": "19",
+      "first_name": "Berry",
+      "last_name": "Very",
+      "email": "testing_email@gmail.com",
+      "graduation": "09/21",
+      "birthday": "01/01/23",
+      "gender": "Other",
+      "attributes": "Somewhere"
+    },
+    "meta": {},
+    "jsonapi": {
+      "version": "1.0"
+    }
+  }
