@@ -83,8 +83,8 @@ def login():
             if check_password_hash(user.password,str(form.password.data)):
                 login_user(user)
                 return redirect("/admin")
-            return render_template("signin.html", login_form=form, error=log_error)
-        return render_template("signin.html", login_form=form, error=log_error)
+            return "Error" #render_template("signin.html", login_form=form, error=log_error)
+        return "Error" #render_template("signin.html", login_form=form, error=log_error)
     return render_template("signin.html", login_form=form)
 
 @login_blueprint.route('/logout')
