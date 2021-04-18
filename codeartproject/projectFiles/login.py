@@ -85,8 +85,9 @@ def login():
     with open(filename) as test_file:
         data = json.load(test_file)
 
-
+    print("BEFORE ENTERING")
     if form.validate_on_submit():
+        print("DID YOU MAKE IT HERE?")
         user = Account.query.filter_by(email=str(form.email.data).lower()).first()
         if user:
             if check_password_hash(user.password,str(form.password.data)):
