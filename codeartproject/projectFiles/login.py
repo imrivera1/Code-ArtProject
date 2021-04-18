@@ -1,4 +1,4 @@
-from flask import Flask, flash, send_from_directory, request, Blueprint, render_template, redirect, url_for, json, current_app as app
+from flask import Flask, flash, send_from_directory, request, Blueprint, render_template, redirect, url_for
 from flask_login import UserMixin, LoginManager, login_user, login_required,logout_user, current_user
 from flask_admin.contrib.sqla import ModelView
 from databasedetails import db, Account
@@ -10,7 +10,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 from wtforms import StringField, PasswordField, BooleanField
-import os
 
 
 login_manager = LoginManager()
@@ -79,24 +78,14 @@ def login():
 
     log_error = '<font color="red">' + "Error: Incorrect Credentials" + '</font>'
 
-    # static/data/test_data.json
-    filename = os.path.join(app.static_folder, 'data', 'test_account.json')
-
-    with open(filename) as test_file:
-        data = json.load(test_file)
-
-    print("BEFORE ENTERING")
-    print(form.email.data)
-    print(form.password.data)
     if form.validate_on_submit():
-        print("DID YOU MAKE IT HERE?")
         user = Account.query.filter_by(email=str(form.email.data).lower()).first()
         if user:
             if check_password_hash(user.password,str(form.password.data)):
                 login_user(user)
                 return redirect("/admin")
-            return data #render_template("signin.html", login_form=form, error=log_error)
-        return data #render_template("signin.html", login_form=form, error=log_error)
+            return render_template("signin.html", login_form=form, error=log_error)
+        return render_template("signin.html", login_form=form, error=log_error)
     return render_template("signin.html", login_form=form)
 
 @login_blueprint.route('/logout')
