@@ -104,7 +104,6 @@ class AccountInfo(Resource):
 
 
 class AccountCreate(Resource):
-    print("BEFORE")
     parser = reqparse.RequestParser()
     parser.add_argument('is_admin', type=bool)
     parser.add_argument('is_student', type=bool)
@@ -116,8 +115,6 @@ class AccountCreate(Resource):
     parser.add_argument('gender', type=str)
     parser.add_argument('attributes', type=str)
     parser.add_argument('password', type=str)
-
-    print("After parse, before post method")
 
     def post(self):
         print(request.data)
