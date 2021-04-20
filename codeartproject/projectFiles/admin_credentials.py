@@ -5,8 +5,10 @@ import uuid
 
 created_admin_id = uuid.uuid4()
 
-admin=Account(id=str( created_admin_id ), is_admin=True, is_student=False, first_name="Romina", last_name="Polo", email="admin@gmail.com", 
-graduation="", birthday="", gender="female", attributes="", password=generate_password_hash("admin@OnlyPass!", method="SHA512"))
+print( int(created_admin_id) )
 
-db.session.add(admin)
-db.session.commit()
+#admin=Account(id=int(created_admin_id ), is_admin=True, is_student=False, first_name="Romina", last_name="Polo", email="admin@gmail.com", 
+#graduation="", birthday="", gender="female", attributes="", password=generate_password_hash("admin@OnlyPass!", method="SHA512"))
+
+#db.session.add(admin)
+#db.session.commit()
