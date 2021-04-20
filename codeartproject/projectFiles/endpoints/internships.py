@@ -17,7 +17,7 @@ def create_api(app):
     
 class InternModify(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('id', type=int)
+    parser.add_argument('id', type=str)
     parser.add_argument('auth', type=str)
     parser.add_argument('location', type=str)
     parser.add_argument('company', type=str)
@@ -26,7 +26,6 @@ class InternModify(Resource):
     parser.add_argument('start_datetime', type=str)
     parser.add_argument('end_datetime', type=str)
     parser.add_argument('details', type=str)
-    parser.add_argument('intern_id', type=str)
 
     def put(self):
 
@@ -34,7 +33,7 @@ class InternModify(Resource):
             args = self.parser.parse_args()
             if verify_auth(args['auth'], args['id']):
 
-                internship = Internship.query.get(args["intern_id"])
+                internship = Internship.query.get(args["id"])
                 
                 if internship:
 
@@ -60,7 +59,7 @@ class InternModify(Resource):
 
 class InternCreate(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('id', type=int)
+    parser.add_argument('id', type=str)
     parser.add_argument('auth', type=str)
     parser.add_argument('location', type=str)
     parser.add_argument('company', type=str)
@@ -76,18 +75,18 @@ class InternCreate(Resource):
             created_id = uuid.uuid4()
             args = self.parser.parse_args()
             if verify_auth('auth', 'id'):
-                intern_id = int( created_id )
-                acc = Account.query.get( int( args["id"] ) )
-                if acc:
-                    internship = Internship(id=intern_id, location=args["location"], company=args["company"], role=args["role"], 
-                    link=args["link"], start_datetime=args["start_datetime"], end_datetime=args["end_datetime"], details=args["details"])
+                intern_id = str( created_id )
+                #acc = Account.query.get( str( args["id"] ) )
+                #if acc:
+                internship = Internship(id=intern_id, location=args["location"], company=args["company"], role=args["role"], 
+                link=args["link"], start_datetime=args["start_datetime"], end_datetime=args["end_datetime"], details=args["details"])
 
-                    db.session.add(internship)
-                    db.session.commit()
+                db.session.add(internship)
+                db.session.commit()
 
-                    return {"success": True}, 201
-                else:
-                    return {"msg":"No Account","success":False}, 400
+                return {"success": True}, 201
+                #else:
+                    #return {"msg":"No Account","success":False}, 400
             else:
                 return {"msg":"Invalid ID or Auth Token","success":False}, 400
         except Exception as exe:
@@ -98,13 +97,12 @@ class InternInfo(Resource):
     def get(self):
         try:
             parser = reqparse.RequestParser()
-            parser.add_argument('id', type=int)
+            parser.add_argument('id', type=str)
             parser.add_argument('auth', type=str)
-            parser.add_argument('intern_id', type=str)
             args = parser.parse_args()
 
             if verify_auth('auth', 'id'):
-                internship = Internship.query.get( args["intern_id"] )
+                internship = Internship.query.get( args["id"] )
                 if internship:
                     print("Internship Exists")
 
@@ -121,22 +119,22 @@ class InternInfo(Resource):
 class InternDelete(Resource):
     def delete(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('id', type=int)
+        parser.add_argument('id', type=str)
         parser.add_argument('auth', type=str)
-        parser.add_argument('intern_id', type=str)
 
         try:
             args = parser.parse_args()
-            if verify_auth('auth', 'id'):
-                acc = Account.query.get( int( args["id"] ) )
-                if acc:
-                    internship = Internship.query.get(args["intern_id"])
-                    if internship:
-                        db.session.delete(internship)
-                        db.session.commit()
-                        return {"msg":"Internship Deleted","success":True}, 200
-                else:
-                    return {"msg":"No Account","success":False}, 400
+            #if verify_auth('auth', 'id'):
+                #acc = Account.query.get( str( args["id"] ) )
+                #if acc:
+            internship = Internship.query.get(args["id"])
+
+            if internship:
+                db.session.delete(internship)
+                db.session.commit()
+                return {"msg":"Internship Deleted","success":True}, 200
+                #else:
+                    #return {"msg":"No Account","success":False}, 400
             else:
                 return {"msg":"Internship Could Not Be Deleted","success":False}, 400
         except Exception as exe:
