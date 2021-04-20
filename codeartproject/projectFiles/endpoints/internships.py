@@ -74,7 +74,9 @@ class InternCreate(Resource):
         try:
             created_id = uuid.uuid4()
             args = self.parser.parse_args()
+            print("Before Verified")
             if verify_auth('auth', 'id'):
+                print("Verifed")
                 intern_id = str( created_id )
                 #acc = Account.query.get( str( args["id"] ) )
                 #if acc:
