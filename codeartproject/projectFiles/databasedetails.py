@@ -19,7 +19,7 @@ class Account(db.Model, UserMixin):
     gender: str
     attributes: str
     """
-    id = db.Column(db.Text, primary_key = True, unique = True, autoincrement=False, nullable = False)
+    id = db.Column(db.Text, unique = True, autoincrement=False, nullable = False)
     is_admin = db.Column(db.Boolean, nullable = False)
     is_student = db.Column(db.Boolean, nullable = False)
     first_name = db.Column(db.Text, nullable = False)
