@@ -19,7 +19,7 @@ class Account(db.Model, UserMixin):
     gender: str
     attributes: str
     """
-    id = db.Column(db.Text, primary_key = True, unique = True, nullable = False)
+    id = db.Column(db.Text, primary_key = True, unique = True, autoincrement=False, nullable = False)
     is_admin = db.Column(db.Boolean, nullable = False)
     is_student = db.Column(db.Boolean, nullable = False)
     first_name = db.Column(db.Text, nullable = False)
@@ -42,7 +42,7 @@ class Internship(db.Model):
     link: str
     details: str
     """
-    id = db.Column(db.Text, primary_key = True, unique = True, nullable = False)
+    id = db.Column(db.Text, primary_key = True, unique = True, autoincrement=False, nullable = False)
     location = db.Column(db.Text, nullable = False)
     company = db.Column(db.Text, nullable = False)
     role = db.Column(db.Text, nullable = False)
@@ -62,7 +62,7 @@ class Event(db.Model):
     details: str
     """
 
-    id = db.Column(db.Text, primary_key = True, unique = True, nullable = False)
+    id = db.Column(db.Text, primary_key = True, unique = True, autoincrement=False, nullable = False)
     event_name = db.Column(db.Text, nullable = False)
     organizers = db.Column(db.Text, nullable = False)
     location = db.Column(db.Text, nullable = False)
