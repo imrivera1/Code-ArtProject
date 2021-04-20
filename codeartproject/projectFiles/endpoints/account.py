@@ -39,7 +39,7 @@ class Login(Resource):
 
 class AccountModify(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('id', type=str)
+    parser.add_argument('id', type=int)
     parser.add_argument('is_admin', type=bool)
     parser.add_argument('is_student', type=bool)
     parser.add_argument('first_name', type=str)
@@ -53,7 +53,6 @@ class AccountModify(Resource):
     parser.add_argument('auth', type=str)
 
     def put(self):
-        print(request.data)
 
         try:
             args = self.parser.parse_args()
@@ -86,10 +85,10 @@ class AccountInfo(Resource):
     def get(self):
         try:
             parser = reqparse.RequestParser()
-            parser.add_argument('id', type=str)
+            parser.add_argument('id', type=int)
             args = parser.parse_args()
 
-            acc = Account.query.get( str( args["id"] ) )
+            acc = Account.query.get( int( args["id"] ) )
 
             if not acc:
                 return {"msg": "Invalid Account"}, 400
@@ -117,14 +116,12 @@ class AccountCreate(Resource):
     parser.add_argument('password', type=str)
 
     def post(self):
-        print(request.data)
 
         try:
             created_id = uuid.uuid4()
             args = self.parser.parse_args()
-            print("Attempting to create account: ", str(args["email"]).lower() )
 
-            create_acc = Account(id=str(created_id), is_admin=args["is_admin"], is_student=args["is_student"], 
+            create_acc = Account(id=int(created_id), is_admin=args["is_admin"], is_student=args["is_student"], 
                 first_name=args["first_name"], last_name=args["last_name"], email=str(args["email"]).lower(), graduation=args["graduation"], 
                 birthday=args["birthday"], gender=args["gender"], attributes=args["attributes"], password=generate_password_hash(args["password"], 
                 method='SHA512') )

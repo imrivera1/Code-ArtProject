@@ -17,7 +17,7 @@ def create_api(app):
     
 class InternModify(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('id', type=str)
+    parser.add_argument('id', type=int)
     parser.add_argument('auth', type=str)
     parser.add_argument('location', type=str)
     parser.add_argument('company', type=str)
@@ -29,7 +29,6 @@ class InternModify(Resource):
     parser.add_argument('intern_id', type=str)
 
     def put(self):
-        print(request.data)
 
         try:
             args = self.parser.parse_args()
@@ -61,7 +60,7 @@ class InternModify(Resource):
 
 class InternCreate(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('id', type=str)
+    parser.add_argument('id', type=int)
     parser.add_argument('auth', type=str)
     parser.add_argument('location', type=str)
     parser.add_argument('company', type=str)
@@ -72,14 +71,13 @@ class InternCreate(Resource):
     parser.add_argument('details', type=str)
     
     def post(self):
-        print(request.data)
 
         try:
             created_id = uuid.uuid4()
             args = self.parser.parse_args()
             if verify_auth('auth', 'id'):
-                intern_id = str( created_id )
-                acc = Account.query.get( str( args["id"] ) )
+                intern_id = int( created_id )
+                acc = Account.query.get( int( args["id"] ) )
                 if acc:
                     internship = Internship(id=intern_id, location=args["location"], company=args["company"], role=args["role"], 
                     link=args["link"], start_datetime=args["start_datetime"], end_datetime=args["end_datetime"], details=args["details"])
@@ -100,7 +98,7 @@ class InternInfo(Resource):
     def get(self):
         try:
             parser = reqparse.RequestParser()
-            parser.add_argument('id', type=str)
+            parser.add_argument('id', type=int)
             parser.add_argument('auth', type=str)
             parser.add_argument('intern_id', type=str)
             args = parser.parse_args()
@@ -123,14 +121,14 @@ class InternInfo(Resource):
 class InternDelete(Resource):
     def delete(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('id', type=str)
+        parser.add_argument('id', type=int)
         parser.add_argument('auth', type=str)
         parser.add_argument('intern_id', type=str)
 
         try:
             args = parser.parse_args()
             if verify_auth('auth', 'id'):
-                acc = Account.query.get( str( args["id"] ) )
+                acc = Account.query.get( int( args["id"] ) )
                 if acc:
                     internship = Internship.query.get(args["intern_id"])
                     if internship:

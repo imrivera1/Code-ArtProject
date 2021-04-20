@@ -18,7 +18,7 @@ def create_api(app):
 
 class EventModify(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('id', type=str)
+    parser.add_argument('id', type=int)
     parser.add_argument('auth', type=str)
     parser.add_argument('event_name', type=str)
     parser.add_argument('organizers', type=str)
@@ -64,7 +64,7 @@ class EventInfo(Resource):
     def get(self):
         try:
             parser = reqparse.RequestParser()
-            parser.add_argument('id', type=str)
+            parser.add_argument('id', type=int)
             parser.add_argument('auth', type=str)
             parser.add_argument('event_id', type=str)
             args = parser.parse_args()
@@ -86,7 +86,7 @@ class EventInfo(Resource):
 
 class EventCreate(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('id', type=str)
+    parser.add_argument('id', type=int)
     parser.add_argument('auth', type=str)
     parser.add_argument('event_name', type=str)
     parser.add_argument('organizers', type=str)
@@ -97,14 +97,13 @@ class EventCreate(Resource):
     parser.add_argument('details', type=str)
     
     def post(self):
-        print(request.data)
 
         try:
             created_id = uuid.uuid4()
             args = self.parser.parse_args()
             if verify_auth('auth', 'id'):
-                event_id = str( created_id )
-                acc = Account.query.get( str( args["id"] ) )
+                event_id = int( created_id )
+                acc = Account.query.get( int( args["id"] ) )
                 if acc:
                     event = Event(id=event_id, event_name=args["event_name"], organizers=args["organizers"], location=args["location"], 
                     cost=args["cost"], start_datetime=args["start_datetime"], end_datetime=args["end_datetime"], details=args["details"])
@@ -125,14 +124,14 @@ class EventCreate(Resource):
 class EventDelete(Resource):
     def delete(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('id', type=str)
+        parser.add_argument('id', type=int)
         parser.add_argument('auth', type=str)
         parser.add_argument('event_id', type=str)
 
         try:
             args = parser.parse_args()
             if verify_auth('auth', 'id'):
-                acc = Account.query.get( str( args["id"] ) )
+                acc = Account.query.get( int( args["id"] ) )
                 if acc:
                     event = Event.query.get(args["event_id"])
                     if event:
