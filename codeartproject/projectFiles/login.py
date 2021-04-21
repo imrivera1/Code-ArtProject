@@ -21,10 +21,12 @@ class AdminModelViewAcc(ModelView):
     column_searchable_list = ["first_name","last_name","email","birthday","graduation"]
 
     def is_accessible(self):
+        # call update function? update_age() based on calculation? 
         return current_user.is_authenticated and current_user.is_admin
 
     def on_model_change(self, form, Account, is_created=False):
         Account.password = generate_password_hash(Account.password, method='SHA512')
+        # change age here? Account.age = updated_age?
 
     def _handle_view(self, name, **kwargs):
         if not self.is_accessible():
