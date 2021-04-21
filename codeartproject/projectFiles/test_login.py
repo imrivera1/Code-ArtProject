@@ -3,7 +3,11 @@ from database import db
 from werkzeug.security import generate_password_hash
 import uuid
 
-student = Account(id=str( uuid.uuid4() ), is_admin=False, is_student=True, first_name="Alexa", last_name="Fern", 
+string_uuid = str( uuid.uuid4().int )
+half_len_of_string = int( len(string_uuid)/2 )
+created_id = int( string_uuid[:half_len_of_string] )
+
+student = Account(id=created_id, is_admin=False, is_student=True, first_name="Alexa", last_name="Fern", 
 email="student@gmail.com", graduation="", birthday="04/11/1993", gender="female", attributes="", password=generate_password_hash("password",method="SHA512"))
 
 db.session.add(student)
