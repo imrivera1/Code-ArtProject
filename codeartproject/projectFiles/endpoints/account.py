@@ -59,8 +59,7 @@ class AccountModify(Resource):
             args = self.parser.parse_args()
             if not verify_auth(args['auth'], args['id']):
                 return {"msg": "Invalid id or Auth Token", "success": False}, 400
-            
-            #created_id = uuid.uuid4()
+
             mod_acc = Account.query.get(args["id"])
 
             mod_acc.is_admin = args["is_admin"]
