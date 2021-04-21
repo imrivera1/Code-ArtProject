@@ -23,6 +23,9 @@ class AdminModelViewAcc(ModelView):
     def is_accessible(self):
         return current_user.is_authenticated and current_user.is_admin
 
+    def on_model_change(self, form, Account, is_created=False):
+        Account.password = generate_password_hash(Account.password, method='SHA512')
+
     def _handle_view(self, name, **kwargs):
         if not self.is_accessible():
             return redirect(url_for('login', next=request.url))
