@@ -78,8 +78,8 @@ class InternCreate(Resource):
             args = self.parser.parse_args()
             if verify_auth('auth', 'id'):
 
-                string_uuid = str( uuid.uuid4() )
-                half_len_of_string = ( len(string_uuid) )/2
+                string_uuid = str( uuid.uuid4().int )
+                half_len_of_string = int( len(string_uuid)/2 )
                 intern_id = int( string_uuid[:half_len_of_string] )
 
                 acc = Account.query.get( int( args["id"] ) )

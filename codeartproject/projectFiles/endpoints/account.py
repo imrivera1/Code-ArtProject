@@ -119,8 +119,8 @@ class AccountCreate(Resource):
     def post(self):
 
         try:
-            string_uuid = str( uuid.uuid4() )
-            half_len_of_string = ( len(string_uuid) )/2
+            string_uuid = str( uuid.uuid4().int )
+            half_len_of_string = int( len(string_uuid)/2 )
             created_id = int( string_uuid[:half_len_of_string] )
 
             args = self.parser.parse_args()
