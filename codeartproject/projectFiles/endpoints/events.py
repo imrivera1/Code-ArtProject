@@ -18,7 +18,7 @@ def create_api(app):
 
 class EventModify(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('id', type=str)
+    parser.add_argument('id', type=int)
     parser.add_argument('auth', type=str)
     parser.add_argument('event_name', type=str)
     parser.add_argument('organizers', type=str)
@@ -27,7 +27,7 @@ class EventModify(Resource):
     parser.add_argument('start_datetime', type=str)
     parser.add_argument('end_datetime', type=str)
     parser.add_argument('details', type=str)
-    parser.add_argument('event_id', type=str)
+    parser.add_argument('event_id', type=int)
 
     def put(self):
         print(request.data)
@@ -64,9 +64,9 @@ class EventInfo(Resource):
     def get(self):
         try:
             parser = reqparse.RequestParser()
-            parser.add_argument('id', type=str)
+            parser.add_argument('id', type=int)
             parser.add_argument('auth', type=str)
-            parser.add_argument('event_id', type=str)
+            parser.add_argument('event_id', type=int)
             args = parser.parse_args()
 
             if verify_auth('auth', 'id'):
@@ -86,7 +86,7 @@ class EventInfo(Resource):
 
 class EventCreate(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('id', type=str)
+    parser.add_argument('id', type=int)
     parser.add_argument('auth', type=str)
     parser.add_argument('event_name', type=str)
     parser.add_argument('organizers', type=str)
@@ -103,7 +103,11 @@ class EventCreate(Resource):
             created_id = uuid.uuid4()
             args = self.parser.parse_args()
             if verify_auth('auth', 'id'):
-                event_id = str( created_id )
+
+                string_uuid = str( uuid.uuid4() )
+                half_len_of_string = ( len(string_uuid) )/2
+                event_id = int( string_uuid[:half_len_of_string] )
+
                 acc = Account.query.get( str( args["id"] ) )
                 if acc:
                     event = Event(id=event_id, event_name=args["event_name"], organizers=args["organizers"], location=args["location"], 
@@ -125,14 +129,14 @@ class EventCreate(Resource):
 class EventDelete(Resource):
     def delete(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('id', type=str)
+        parser.add_argument('id', type=int)
         parser.add_argument('auth', type=str)
-        parser.add_argument('event_id', type=str)
+        parser.add_argument('event_id', type=int)
 
         try:
             args = parser.parse_args()
             if verify_auth('auth', 'id'):
-                acc = Account.query.get( str( args["id"] ) )
+                acc = Account.query.get( int( args["id"] ) )
                 if acc:
                     event = Event.query.get(args["event_id"])
                     if event:

@@ -39,7 +39,7 @@ class Login(Resource):
 
 class AccountModify(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('id', type=str)
+    parser.add_argument('id', type=int)
     parser.add_argument('is_admin', type=bool)
     parser.add_argument('is_student', type=bool)
     parser.add_argument('first_name', type=str)
@@ -60,7 +60,7 @@ class AccountModify(Resource):
             if not verify_auth(args['auth'], args['id']):
                 return {"msg": "Invalid id or Auth Token", "success": False}, 400
             
-            created_id = uuid.uuid4()
+            #created_id = uuid.uuid4()
             mod_acc = Account.query.get(args["id"])
 
             mod_acc.is_admin = args["is_admin"]
@@ -86,10 +86,10 @@ class AccountInfo(Resource):
     def get(self):
         try:
             parser = reqparse.RequestParser()
-            parser.add_argument('id', type=str)
+            parser.add_argument('id', type=int)
             args = parser.parse_args()
 
-            acc = Account.query.get( str( args["id"] ) )
+            acc = Account.query.get( int( args["id"] ) )
 
             if not acc:
                 return {"msg": "Invalid Account"}, 400
@@ -119,10 +119,13 @@ class AccountCreate(Resource):
     def post(self):
 
         try:
-            created_id = uuid.uuid4()
+            string_uuid = str( uuid.uuid4() )
+            half_len_of_string = ( len(string_uuid) )/2
+            created_id = int( string_uuid[:half_len_of_string] )
+
             args = self.parser.parse_args()
 
-            create_acc = Account(id=str(created_id), is_admin=args["is_admin"], is_student=args["is_student"], 
+            create_acc = Account(id=created_id, is_admin=args["is_admin"], is_student=args["is_student"], 
                 first_name=args["first_name"], last_name=args["last_name"], email=str(args["email"]).lower(), graduation=args["graduation"], 
                 birthday=args["birthday"], gender=args["gender"], attributes=args["attributes"], password=generate_password_hash(args["password"], 
                 method='SHA512') )
