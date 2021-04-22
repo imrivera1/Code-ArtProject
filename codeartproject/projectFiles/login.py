@@ -68,8 +68,10 @@ class LoginForm(FlaskForm):
 
 def update_all_accounts():
     for st_account in Account.query.all():
-            stripped_birthdate = datetime.strptime(st_account.birthday, "%d/%m/%y")
-            st_account.age = update_age( stripped_birthdate )
+        print(st_account.birthday)
+        stripped_birthdate = datetime.strptime(st_account.birthday, "%d/%m/%y")
+        print(stripped_birthdate)
+        st_account.age = update_age( stripped_birthdate )
 
 @login_manager.user_loader
 def load_user(id):
