@@ -67,7 +67,8 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[InputRequired(), Length(min=8,max=64)])
 
 def update_all_accounts():
-    for st_account in Account.query.all():
+    all_accounts = Account.query.all()
+    for st_account in all_accounts:
         print(st_account.birthday)
         stripped_birthdate = datetime.strptime(st_account.birthday, "%d/%m/%y")
         print(stripped_birthdate)
