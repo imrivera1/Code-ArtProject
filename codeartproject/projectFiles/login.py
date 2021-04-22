@@ -10,7 +10,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 from wtforms import StringField, PasswordField, BooleanField
-
+from datetime import datetime, date
+from getage import update_age
 
 login_manager = LoginManager()
 login_manager.login_view = '/login'
@@ -20,13 +21,17 @@ login_blueprint = Blueprint("logins","__logins__")
 class AdminModelViewAcc(ModelView):
     column_searchable_list = ["first_name","last_name","email","birthday","graduation"]
 
-    def is_accessible(self):
+    def is_accessible(self, Account):
         # call update function? update_age() based on calculation? 
+        # LOOP THROUGH ALL THE ACCOUNTS --> Account query? 
+        for st_account in Account.query.all():
+            stripped_birthdate = datetime.strptime(st_account.birthday, "%d/%m/%y")
+            st_account.age = update_age( stripped_birthdate )
+
         return current_user.is_authenticated and current_user.is_admin
 
     def on_model_change(self, form, Account, is_created=False):
         Account.password = generate_password_hash(Account.password, method='SHA512')
-        # change age here? Account.age = updated_age?
 
     def _handle_view(self, name, **kwargs):
         if not self.is_accessible():

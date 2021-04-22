@@ -6,6 +6,7 @@ import json
 import uuid
 from endpoints.verify_auth import verify_auth, live_tokens
 from werkzeug.security import check_password_hash, generate_password_hash
+from getage import update_age
 app_api = None
 
 
@@ -61,6 +62,9 @@ class AccountModify(Resource):
                 return {"msg": "Invalid id or Auth Token", "success": False}, 400
 
             mod_acc = Account.query.get(args["id"])
+            
+            stripped_mod_birthdate = datetime.strptime(args["birthday"], "%d/%m/%y")
+            mod_age = update_age( stripped_mod_birthdate )
 
             mod_acc.is_admin = args["is_admin"]
             mod_acc.is_student = args["is_student"]
@@ -69,6 +73,7 @@ class AccountModify(Resource):
             mod_acc.email = str( args["email"] ).lower()
             mod_acc.graduation = args["graduation"]
             mod_acc.birthday = args["birthday"]
+            mod_acc.age = mod_age
             mod_acc.gender = args["gender"]
             mod_acc.attributes = args["attributes"]
             mod_acc.password = generate_password_hash(args["password"], method='SHA512')
@@ -94,7 +99,7 @@ class AccountInfo(Resource):
                 return {"msg": "Invalid Account"}, 400
             
             return {"is_admin": acc.is_admin, "is_student": acc.is_student, "first_name": acc.first_name, "last_name": acc.last_name, 
-            "email": acc.email, "graduation": acc.graduation, "birthday": acc.birthday, "gender": acc.gender, "attributes": acc.attributes, 
+            "email": acc.email, "graduation": acc.graduation, "birthday": acc.birthday, "age": acc.age "gender": acc.gender, "attributes": acc.attributes, 
             "success": True}, 200 
             
         except Exception as exe:
@@ -124,9 +129,12 @@ class AccountCreate(Resource):
 
             args = self.parser.parse_args()
 
+            stripped_birthdate = datetime.strptime(args["birthday"], "%d/%m/%y")
+            acc_age = update_age( stripped_birthdate )
+
             create_acc = Account(id=created_id, is_admin=args["is_admin"], is_student=args["is_student"], 
                 first_name=args["first_name"], last_name=args["last_name"], email=str(args["email"]).lower(), graduation=args["graduation"], 
-                birthday=args["birthday"], gender=args["gender"], attributes=args["attributes"], password=generate_password_hash(args["password"], 
+                birthday=args["birthday"], age=acc_age, gender=args["gender"], attributes=args["attributes"], password=generate_password_hash(args["password"], 
                 method='SHA512') )
             
             db.session.add(create_acc)
