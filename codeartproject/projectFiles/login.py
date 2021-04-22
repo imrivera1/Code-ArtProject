@@ -19,15 +19,12 @@ login_blueprint = Blueprint("logins","__logins__")
 
 
 class AdminModelViewAcc(ModelView):
-    column_searchable_list = ["first_name","last_name","email","birthday","graduation"]
+    column_searchable_list = ["first_name","last_name","email","birthday", "age", "graduation"]
 
-    def is_accessible(self, Account):
+    def is_accessible(self):
         # call update function? update_age() based on calculation? 
         # LOOP THROUGH ALL THE ACCOUNTS --> Account query? 
-        for st_account in Account.query.all():
-            stripped_birthdate = datetime.strptime(st_account.birthday, "%d/%m/%y")
-            st_account.age = update_age( stripped_birthdate )
-
+        update_all_accounts()
         return current_user.is_authenticated and current_user.is_admin
 
     def on_model_change(self, form, Account, is_created=False):
@@ -68,6 +65,11 @@ class AdminLogoutLink(MenuLink):
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[InputRequired(), Length(min=4,max=64)])
     password = PasswordField('Password', validators=[InputRequired(), Length(min=8,max=64)])
+
+def update_all_accounts():
+    for st_account in Account.query.all():
+            stripped_birthdate = datetime.strptime(st_account.birthday, "%d/%m/%y")
+            st_account.age = update_age( stripped_birthdate )
 
 @login_manager.user_loader
 def load_user(id):
