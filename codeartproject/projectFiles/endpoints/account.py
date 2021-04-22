@@ -62,7 +62,7 @@ class AccountModify(Resource):
                 return {"msg": "Invalid id or Auth Token", "success": False}, 400
 
             mod_acc = Account.query.get(args["id"])
-            
+
             stripped_mod_birthdate = datetime.strptime(args["birthday"], "%d/%m/%y")
             mod_age = update_age( stripped_mod_birthdate )
 
@@ -99,7 +99,7 @@ class AccountInfo(Resource):
                 return {"msg": "Invalid Account"}, 400
             
             return {"is_admin": acc.is_admin, "is_student": acc.is_student, "first_name": acc.first_name, "last_name": acc.last_name, 
-            "email": acc.email, "graduation": acc.graduation, "birthday": acc.birthday, "age": acc.age "gender": acc.gender, "attributes": acc.attributes, 
+            "email": acc.email, "graduation": acc.graduation, "birthday": acc.birthday, "age": acc.age, "gender": acc.gender, "attributes": acc.attributes, 
             "success": True}, 200 
             
         except Exception as exe:
