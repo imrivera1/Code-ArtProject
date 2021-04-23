@@ -12,9 +12,9 @@ app_api = None
 def create_api(app):
     app_api = Api(app)
     app_api.add_resource(EventInfo, "/eventinfo")
-    app_api.add_resource(EventModify, "/eventmodify")
+    '''app_api.add_resource(EventModify, "/eventmodify")
     app_api.add_resource(EventCreate, "/eventcreate")
-    app_api.add_resource(EventDelete, "/eventdelete")
+    app_api.add_resource(EventDelete, "/eventdelete")'''
 
 #Endpoint for the app that modifies the event ( Might Not Need This )
 '''class EventModify(Resource):

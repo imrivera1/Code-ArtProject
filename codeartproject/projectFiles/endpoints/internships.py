@@ -12,9 +12,9 @@ app_api = None
 def create_api(app):
     app_api = Api(app)
     app_api.add_resource(InternInfo, "/interninfo")
-    app_api.add_resource(InternModify, "/internmodify")
+    '''app_api.add_resource(InternModify, "/internmodify")
     app_api.add_resource(InternCreate, "/interncreate")
-    app_api.add_resource(InternDelete, "/interndelete")
+    app_api.add_resource(InternDelete, "/interndelete")'''
 
 #Endpoint for the app that modifies the internship ( Might Not Need This )
 '''class InternModify(Resource):
