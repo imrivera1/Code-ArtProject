@@ -1,6 +1,6 @@
 #import sys
 #sys.path.append("/home/imrivera/Code-ArtProject/codeartproject/projectFiles")
-from ..databasedetails import Account, Internship, Event
+from .projectFiles.databasedetails import Account, Internship, Event
 from database import db 
 from werkzeug.security import generate_password_hash
 import uuid
