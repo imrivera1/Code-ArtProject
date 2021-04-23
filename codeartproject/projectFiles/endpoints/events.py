@@ -17,7 +17,7 @@ def create_api(app):
     app_api.add_resource(EventDelete, "/eventdelete")
 
 #Endpoint for the app that modifies the event ( Might Not Need This )
-class EventModify(Resource):
+'''class EventModify(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('id', type=int)
     parser.add_argument('auth', type=str)
@@ -58,7 +58,7 @@ class EventModify(Resource):
 
         except Exception as exe:
             print(exe)
-            return {"success": False}, 400
+            return {"success": False}, 400'''
 
 #Endpoint for displaying the information of the event to the app
 class EventInfo(Resource):
@@ -72,20 +72,21 @@ class EventInfo(Resource):
 
             if verify_auth('auth', 'id'):                                                           #Verify that it is authenticated
                 event = Event.query.get( args["event_id"] )                                         #Get the event using the event id
-                if event:                                                                           #If the id matches an event in the database then return the information regarding 
+                if event:                                                                           #If the id matches an event in the database then return the information regarding the event
                     print("Event Exists")
 
                     return {"event_name": event.event_name, "organizers": event.organizers, "location": event.location, "cost": event.cost,
                     "start_datetime": event.start_datetime, "end_datetime": event.end_datetime, "details": event.details, 
                     "success": True}, 200
             else:
-                return {"msg": "Invalid ID or Auth Token", "success": False}, 400
+                return {"msg": "Invalid ID or Auth Token", "success": False}, 400                   #If the event is not verified, return the error message 
 
-        except Exception as exe:
+        except Exception as exe:                                                                    #If the parameters are incorrect, return error message
             print(exe)
             return {"msg": "Incorrect Event ID", "success": False}, 400
 
-class EventCreate(Resource):
+#Endpoint for creating events for the app ( Might Not Need This Either )
+'''class EventCreate(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('id', type=int)
     parser.add_argument('auth', type=str)
@@ -124,10 +125,10 @@ class EventCreate(Resource):
                 return {"msg":"Invalid ID or Auth Token","success":False}, 400
         except Exception as exe:
             print(exe)
-            return {"msg": "Incorrect Event Parameters", "success": False}, 400
+            return {"msg": "Incorrect Event Parameters", "success": False}, 400'''
             
-
-class EventDelete(Resource):
+#Endpoint for deleting events for the app ( Might Not Need This )
+'''class EventDelete(Resource):
     def delete(self):
         parser = reqparse.RequestParser()
         parser.add_argument('id', type=int)
@@ -150,4 +151,4 @@ class EventDelete(Resource):
                 return {"msg":"Event Could Not Be Deleted","success":False}, 400
         except Exception as exe:
             print(exe)
-            return {"msg": "Incorrect Event Parameters", "success": False}, 400
+            return {"msg": "Incorrect Event Parameters", "success": False}, 400'''

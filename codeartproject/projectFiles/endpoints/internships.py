@@ -8,14 +8,16 @@ from endpoints.verify_auth import verify_auth, live_tokens
 
 app_api = None
 
+#Endpoint links for the app to be able to establish a connection 
 def create_api(app):
     app_api = Api(app)
     app_api.add_resource(InternInfo, "/interninfo")
     app_api.add_resource(InternModify, "/internmodify")
     app_api.add_resource(InternCreate, "/interncreate")
     app_api.add_resource(InternDelete, "/interndelete")
-    
-class InternModify(Resource):
+
+#Endpoint for the app that modifies the internship ( Might Not Need This )
+'''class InternModify(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('id', type=int)
     parser.add_argument('auth', type=str)
@@ -56,9 +58,10 @@ class InternModify(Resource):
 
         except Exception as exe:
             print(exe)
-            return {"success": False}, 400
+            return {"success": False}, 400'''
 
-class InternCreate(Resource):
+#Endpoint for creating internships for the app ( Might Not Need This Either )
+'''class InternCreate(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('id', type=int)
     parser.add_argument('auth', type=str)
@@ -97,33 +100,35 @@ class InternCreate(Resource):
                 return {"msg":"Invalid ID or Auth Token","success":False}, 400
         except Exception as exe:
             print(exe)
-            return {"msg": "Incorrect Internship Parameters", "success": False}, 400
+            return {"msg": "Incorrect Internship Parameters", "success": False}, 400'''
 
+#Endpoint for displaying the information of the internship to the app
 class InternInfo(Resource):
     def get(self):
         try:
-            parser = reqparse.RequestParser()
+            parser = reqparse.RequestParser()                                                       #Get the parameter id, auth, and intern_id of the internship
             parser.add_argument('id', type=str)
             parser.add_argument('auth', type=str)
             parser.add_argument('intern_id', type=int)
             args = parser.parse_args()
 
-            if verify_auth('auth', 'id'):
-                internship = Internship.query.get( args["intern_id"] )
-                if internship:
+            if verify_auth('auth', 'id'):                                                           #Verify that it is authenticated
+                internship = Internship.query.get( args["intern_id"] )                              #Get the internship using the internship id
+                if internship:                                                                      #If the id matches an internship in the database then return the information regarding the internship
                     print("Internship Exists")
 
                     return {"location": internship.location, "company": internship.company, "role": internship.role, 
                     "link": internship.link, "start_datetime": internship.start_datetime, "end_datetime": internship.end_datetime, 
                     "details": internship.details, "success": True}, 200
             else:
-                return {"msg": "Invalid ID or Auth Token", "success": False}, 400
+                return {"msg": "Invalid ID or Auth Token", "success": False}, 400                   #If the internship is not verified, return the error message
 
         except Exception as exe:
             print(exe)
-            return {"msg": "Incorrect Internship ID", "success": False}, 400
+            return {"msg": "Incorrect Internship ID", "success": False}, 400                        #If the parameters are incorrect, return error message
 
-class InternDelete(Resource):
+#Endpoint for deleting events for the app ( Might Not Need This )
+'''class InternDelete(Resource):
     def delete(self):
         parser = reqparse.RequestParser()
         parser.add_argument('id', type=str)
@@ -146,4 +151,4 @@ class InternDelete(Resource):
                 return {"msg":"Internship Could Not Be Deleted","success":False}, 400
         except Exception as exe:
             print(exe)
-            return {"msg": "Incorrect Internship Parameters", "success": False}, 400
+            return {"msg": "Incorrect Internship Parameters", "success": False}, 400'''

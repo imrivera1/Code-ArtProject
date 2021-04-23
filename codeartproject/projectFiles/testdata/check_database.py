@@ -1,5 +1,5 @@
-from databasedetails import Account, Internship, Event
-from database import db 
+from projectFiles.databasedetails import Account, Internship, Event
+from projectFiles.database import db 
 
 print(Account.query.all())
 
