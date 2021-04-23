@@ -1,8 +1,8 @@
 import sys
 sys.path.append('/Code-ArtProject/codeartproject/projectFiles')
 print(sys.path)
-from projectFiles.databasedetails import Account, Internship, Event
-from projectFiles.database import db 
+from databasedetails import Account, Internship, Event
+from database import db 
 from werkzeug.security import generate_password_hash
 import uuid
 
