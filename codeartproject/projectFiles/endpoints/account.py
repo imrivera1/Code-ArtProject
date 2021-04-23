@@ -66,8 +66,12 @@ class AccountModify(Resource):
 
             mod_acc = Account.query.get(args["id"])                                               #Get the id of the account that will be modified
 
-            stripped_mod_birthdate = datetime.strptime(args["birthday"], "%m/%d/%y")              #Calculate the new age of the modified birthday if applicable
-            mod_age = update_age( stripped_mod_birthdate )
+            try:
+                stripped_mod_birthdate = datetime.strptime(args["birthday"], "%m/%d/%y")              #Calculate the new age of the modified birthday if applicable
+                mod_age = update_age( stripped_mod_birthdate )
+            except:
+                return {"msg":"Incorrect Birthday Format or Missing Birthday", "success":False}, 400
+
 
             #Update all the fields whether they were modified or not 
             mod_acc.is_admin = args["is_admin"]        
