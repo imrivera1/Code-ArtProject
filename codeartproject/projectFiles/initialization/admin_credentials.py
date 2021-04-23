@@ -5,7 +5,7 @@ currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 
-from projectFiles.databasedetails import Account, Internship, Event
+from databasedetails import Account, Internship, Event
 from database import db 
 from werkzeug.security import generate_password_hash
 import uuid
