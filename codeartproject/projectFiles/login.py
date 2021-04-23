@@ -71,7 +71,7 @@ def update_all_accounts():
     for st_account in all_accounts:
         if st_account.birthday != "":
             print(st_account.birthday)
-            stripped_birthdate = datetime.strptime(st_account.birthday, "%m/%d/%Y")
+            stripped_birthdate = datetime.strptime(st_account.birthday, "%mm/%dd/%YYYY")
             print(stripped_birthdate)
             st_account.age = update_age( stripped_birthdate )
 
