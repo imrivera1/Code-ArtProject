@@ -70,7 +70,7 @@ def update_all_accounts():
     all_accounts = Account.query.all()
     for st_account in all_accounts:
         print(st_account.birthday)
-        stripped_birthdate = datetime.strptime(st_account.birthday, "%d/%m/%y")
+        stripped_birthdate = datetime.strptime(st_account.birthday, "%m/%d/%Y")
         print(stripped_birthdate)
         st_account.age = update_age( stripped_birthdate )
 
