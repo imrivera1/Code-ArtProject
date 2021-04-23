@@ -102,8 +102,12 @@ class AccountInfo(Resource):
             parser.add_argument('id', type=int)
             args = parser.parse_args()
 
+            print( int( args["id"] ) )
+
             acc = Account.query.get( int( args["id"] ) )                                            #Check if there is an account with that id
 
+            print("Account:" + acc)
+            
             if not acc:                                                                             #If not, then return an error message
                 return {"msg": "Invalid Account"}, 400
             
