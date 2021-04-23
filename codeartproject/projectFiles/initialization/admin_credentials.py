@@ -1,5 +1,6 @@
-from .codeartproject.projectFiles.databasedetails import Account, Internship, Event
-from .database import db 
+sys.path.append('/Code-ArtProject/codeartproject/projectFiles')
+from databasedetails import Account, Internship, Event
+from database import db 
 from werkzeug.security import generate_password_hash
 import uuid
 
