@@ -34,5 +34,5 @@ The goal of the Code/Art LEADHers project is to create an iOS application for yo
 
 ## Instructions for Running
 1. python -m flask run --port 4258 (Change the port based on the port that you want listened in on)
-    i. This needs to run in the background constantly so ' screen -r ' without the quotes will be needed to create a background screen so that, when this previous command is used, the database will always be running
+    - This needs to run in the background constantly so ' screen -r ' without the quotes will be needed to create a background screen so that, when this previous command is used, the database will always be running
 
