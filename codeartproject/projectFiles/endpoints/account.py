@@ -136,8 +136,11 @@ class AccountCreate(Resource):
 
             args = self.parser.parse_args()
 
-            stripped_birthdate = datetime.strptime(args["birthday"], "%m/%d/%y")                      #Calculate the age of the user by stripping the birthdate and casting it as a datetime object
-            acc_age = update_age( stripped_birthdate )                                                #Take the stripped birthdate and get the age 
+            try:
+                stripped_birthdate = datetime.strptime(args["birthday"], "%m/%d/%y")                      #Calculate the age of the user by stripping the birthdate and casting it as a datetime object
+                acc_age = update_age( stripped_birthdate )                                                #Take the stripped birthdate and get the age 
+            except:
+                return {"msg":"Incorrect Birthday Format or Missing Birthday", "success":False}, 400
 
             #Create the account with the parameters and calculated age 
             create_acc = Account(id=created_id, is_admin=args["is_admin"], is_student=args["is_student"], 
