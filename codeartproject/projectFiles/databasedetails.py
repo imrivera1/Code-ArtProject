@@ -3,8 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from datetime import datetime
 
-db = SQLAlchemy()
+#Database using SQLAlchemy 
+db = SQLAlchemy() 
 
+#Tables For the Structure of the Database 
+
+#Account Table with its specific variable types
 class Account(db.Model, UserMixin):
     __tablename__='account'
     """
@@ -32,7 +36,7 @@ class Account(db.Model, UserMixin):
     attributes = db.Column(db.Text, nullable = False)
     password = db.Column(db.Text, nullable = False)
 
-
+#Internship Table with its specific variable types
 class Internship(db.Model):
     __tablename__ = 'internship'
     """
@@ -52,6 +56,7 @@ class Internship(db.Model):
     end_datetime = db.Column(db.Text, nullable = False)
     details = db.Column(db.Text, nullable = False)
 
+#Event Table with its specific variable types
 class Event(db.Model):
     __tablename__ = 'event' 
     """

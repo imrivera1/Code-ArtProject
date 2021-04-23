@@ -42,6 +42,7 @@ admin.add_view(AdminModelViewIntern(Internship, db.session))
 admin.add_view(AdminModelViewEvent(Event, db.session))
 admin.add_link(AdminLogoutLink(name="Logout", category='', url="/logout"))
 
+#Redirects user to login no matter if they put a slash or nothing after the link 
 @app.route('/', defaults={"path":''})
 def static_files(path=None):
     print("path:",path)

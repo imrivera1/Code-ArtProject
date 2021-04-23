@@ -8,6 +8,7 @@ from endpoints.verify_auth import verify_auth, live_tokens
 
 app_api = None
 
+#Endpoint links for the app to be able to establish a connection 
 def create_api(app):
     app_api = Api(app)
     app_api.add_resource(EventInfo, "/eventinfo")
@@ -15,7 +16,7 @@ def create_api(app):
     app_api.add_resource(EventCreate, "/eventcreate")
     app_api.add_resource(EventDelete, "/eventdelete")
 
-
+#Endpoint for the app that modifies the event ( Might Not Need This )
 class EventModify(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('id', type=int)
@@ -59,19 +60,19 @@ class EventModify(Resource):
             print(exe)
             return {"success": False}, 400
 
-
+#Endpoint for displaying the information of the event to the app
 class EventInfo(Resource):
     def get(self):
         try:
-            parser = reqparse.RequestParser()
+            parser = reqparse.RequestParser()                                                       #Get the parameter id, auth, and event_id of the event
             parser.add_argument('id', type=int)
             parser.add_argument('auth', type=str)
             parser.add_argument('event_id', type=int)
             args = parser.parse_args()
 
-            if verify_auth('auth', 'id'):
-                event = Event.query.get( args["event_id"] )
-                if event:
+            if verify_auth('auth', 'id'):                                                           #Verify that it is authenticated
+                event = Event.query.get( args["event_id"] )                                         #Get the event using the event id
+                if event:                                                                           #If the id matches an event in the database then return the information regarding 
                     print("Event Exists")
 
                     return {"event_name": event.event_name, "organizers": event.organizers, "location": event.location, "cost": event.cost,
