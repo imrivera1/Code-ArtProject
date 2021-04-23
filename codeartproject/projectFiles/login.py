@@ -21,9 +21,9 @@ login_blueprint = Blueprint("logins","__logins__")
 class AdminModelViewAcc(ModelView):
     column_searchable_list = ["first_name","last_name","email","birthday", "age", "graduation"]
 
+    form_excluded_columns = ("age")
+
     def is_accessible(self):
-        # call update function? update_age() based on calculation? 
-        # LOOP THROUGH ALL THE ACCOUNTS --> Account query? 
         update_all_accounts()
         return current_user.is_authenticated and current_user.is_admin
 
@@ -70,10 +70,11 @@ def update_all_accounts():
     all_accounts = Account.query.all()
     for st_account in all_accounts:
         if st_account.birthday != "":
-            print(st_account.birthday)
-            stripped_birthdate = datetime.strptime(st_account.birthday, "%m/%d/%y")
-            print(stripped_birthdate)
-            st_account.age = update_age( stripped_birthdate )
+            try:
+                stripped_birthdate = datetime.strptime(st_account.birthday, "%m/%d/%y")
+                st_account.age = update_age( stripped_birthdate )
+            except ValueError:
+                flash("Incorrect Birthdate Format. Please put in zero padded format: mm/dd/yy")
 
 @login_manager.user_loader
 def load_user(id):
