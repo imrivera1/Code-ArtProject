@@ -1,5 +1,10 @@
 #import sys
 #sys.path.append("/home/imrivera/Code-ArtProject/codeartproject/projectFiles")
+import os, sys
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+
 from codeartproject.projectFiles.databasedetails import Account, Internship, Event
 from database import db 
 from werkzeug.security import generate_password_hash
