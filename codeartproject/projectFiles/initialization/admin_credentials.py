@@ -1,4 +1,4 @@
-from projectFiles.databasedetails import Account, Internship, Event
+from databasedetails import Account, Internship, Event
 from projectFiles.database import db 
 from werkzeug.security import generate_password_hash
 import uuid
