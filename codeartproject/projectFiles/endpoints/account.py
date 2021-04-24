@@ -98,8 +98,10 @@ class AccountInfo(Resource):
     #Method for getting the information of the account and returning it to app 
     def get(self):
         try:
+            print("Before parse")
             parser = reqparse.RequestParser()                                                       #Get the parameter id of the account
             parser.add_argument('id', type=str)
+            print("After Parse")
             args = parser.parse_args()
 
             print( int( args["id"] ) )
