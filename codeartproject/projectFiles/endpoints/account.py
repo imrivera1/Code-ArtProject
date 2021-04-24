@@ -99,7 +99,7 @@ class AccountInfo(Resource):
     def get(self):
         try:
             print("Before parse")
-            print("Requesting: " + request.data)
+            print(request.data)
             parser = reqparse.RequestParser()                                                       #Get the parameter id of the account
             parser.add_argument('id', type=str)
             print("After Parse Added")
