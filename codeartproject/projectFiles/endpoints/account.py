@@ -103,6 +103,7 @@ class AccountInfo(Resource):
             parser.add_argument('id', type=str)
             print("After Parse")
             args = parser.parse_args()
+            print("Arguments:" + args)
 
             print( int( args["id"] ) )
 
