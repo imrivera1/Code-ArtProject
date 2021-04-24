@@ -42,7 +42,7 @@ class Login(Resource):
 #Endpoint for the app that modifies the account
 class AccountModify(Resource):
     parser = reqparse.RequestParser()                                                             #Takes the newly modified parameters for the account
-    parser.add_argument('id', type=int)
+    parser.add_argument('id', type=str)
     parser.add_argument('is_admin', type=bool)
     parser.add_argument('is_student', type=bool)
     parser.add_argument('first_name', type=str)
@@ -99,7 +99,7 @@ class AccountInfo(Resource):
     def get(self):
         try:
             parser = reqparse.RequestParser()                                                       #Get the parameter id of the account
-            parser.add_argument('id', type=int)
+            parser.add_argument('id', type=str)
             args = parser.parse_args()
 
             print( int( args["id"] ) )
