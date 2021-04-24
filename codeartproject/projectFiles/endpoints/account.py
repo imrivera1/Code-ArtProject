@@ -64,7 +64,7 @@ class AccountModify(Resource):
             if not verify_auth(args['auth'], args['id']):                                         #If the account is not authenticated then it will return an error that the id or token are invalid
                 return {"msg": "Invalid id or Auth Token", "success": False}, 400
 
-            mod_acc = Account.query.get(args["id"])                                               #Get the id of the account that will be modified
+            mod_acc = Account.query.get( int( args["id"] ) )                                              #Get the id of the account that will be modified
 
             try:
                 stripped_mod_birthdate = datetime.strptime(args["birthday"], "%m/%d/%y")              #Calculate the new age of the modified birthday if applicable
@@ -98,16 +98,10 @@ class AccountInfo(Resource):
     #Method for getting the information of the account and returning it to app 
     def get(self):
         try:
-            print("Before parse")
-            print(request.data)
             parser = reqparse.RequestParser()                                                       #Get the parameter id of the account
             parser.add_argument('id', type=str)
-            print(request.data)
-            print("After Parse Added")
-            print(parser.parse_args())
             args = parser.parse_args()
 
-            print( int( args["id"] ) )
 
             acc = Account.query.get( int( args["id"] ) )                                            #Check if there is an account with that id
             
@@ -116,8 +110,8 @@ class AccountInfo(Resource):
             
             #Return all the fields of the account with its respective information
             return {"is_admin": acc.is_admin, "is_student": acc.is_student, "first_name": acc.first_name, "last_name": acc.last_name, 
-            "email": acc.email, "graduation": acc.graduation, "birthday": acc.birthday, "age": acc.age, "gender": acc.gender, "attributes": acc.attributes, 
-            "success": True}, 200 
+            "email": acc.email, "graduation": acc.graduation, "birthday": acc.birthday, "age": acc.age, "gender": acc.gender, "attributes": acc.attributes,
+            "password": acc.password, "success": True}, 200 
             
         except Exception as exe:                                                                     #Return an error message if the paramter id is incorrect
             print(exe)
