@@ -106,7 +106,6 @@ class AccountInfo(Resource):
             print("After Parse Added")
             print(parser.parse_args())
             args = parser.parse_args()
-            print("Arguments:" + args)
 
             print( int( args["id"] ) )
 
