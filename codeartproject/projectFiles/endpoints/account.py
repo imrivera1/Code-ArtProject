@@ -85,7 +85,7 @@ class AccountModify(Resource):
             mod_acc.gender = args["gender"]
             mod_acc.attributes = args["attributes"]
 
-            if args["password"] != "" and args["password"] != null:
+            if args["password"] != "" and check_password_hash( mod_acc.password, args["password"] ) == False:
                 mod_acc.password = generate_password_hash(args["password"], method='SHA512')
                 print(mod_acc.password)
                 print("Changed")
