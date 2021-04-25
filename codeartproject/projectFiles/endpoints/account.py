@@ -87,9 +87,7 @@ class AccountModify(Resource):
 
             if args["password"] != "" and check_password_hash( mod_acc.password, args["password"] ) == False:
                 mod_acc.password = generate_password_hash(args["password"], method='SHA512')
-                print(mod_acc.password)
-                print("Changed")
-            print(mod_acc.password)
+
             db.session.commit()                                                                    #Commit the changes made to save it 
             return {"success": True}, 201
         except Exception as exe:

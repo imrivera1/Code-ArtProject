@@ -65,13 +65,13 @@ class EventInfo(Resource):
     def get(self):
         try:
             parser = reqparse.RequestParser()                                                       #Get the parameter id, auth, and event_id of the event
-            parser.add_argument('id', type=int)
+            parser.add_argument('id', type=str)
             parser.add_argument('auth', type=str)
-            parser.add_argument('event_id', type=int)
+            parser.add_argument('event_id', type=str)
             args = parser.parse_args()
 
             if verify_auth('auth', 'id'):                                                           #Verify that it is authenticated
-                event = Event.query.get( args["event_id"] )                                         #Get the event using the event id
+                event = Event.query.get( int( args["event_id"] ) )                                        #Get the event using the event id
                 if event:                                                                           #If the id matches an event in the database then return the information regarding the event
                     print("Event Exists")
 
