@@ -55,6 +55,8 @@ class AccountModify(Resource):
     parser.add_argument('password', type=str)
     parser.add_argument('auth', type=str)
 
+    print(request.data)
+
     #Method that updates the account with the newly modified parameters
     def put(self):
         print(request.data)
