@@ -55,8 +55,6 @@ class AccountModify(Resource):
     parser.add_argument('password', type=str)
     parser.add_argument('auth', type=str)
 
-    #print(request.data)
-
     #Method that updates the account with the newly modified parameters
     def put(self):
         print(request.data)
@@ -86,7 +84,9 @@ class AccountModify(Resource):
             mod_acc.age = mod_age
             mod_acc.gender = args["gender"]
             mod_acc.attributes = args["attributes"]
-            mod_acc.password = generate_password_hash(args["password"], method='SHA512')
+
+            if args["password"] != "":
+                mod_acc.password = generate_password_hash(args["password"], method='SHA512')
 
             db.session.commit()                                                                    #Commit the changes made to save it 
             return {"success": True}, 201
