@@ -144,9 +144,9 @@ class InternAllInfo(Resource):
                 internship_list = Internship.query.all()
                 for single_intern in internship_list:                                               #If the id matches an internship in the database then return the information regarding the internship
                     print("Internship Exists")
-                    id_list.append(single_intern.id)
+                    id_list.append({"id": single_intern.id)
 
-                return json.dumps(id_list), 200
+                return jsonify(message="All Internship Ids", category="success", data=id_list, status=200)
             else:
                 return {"msg": "Invalid ID or Auth Token", "success": False}, 400                   #If the internship is not verified, return the error message
 
