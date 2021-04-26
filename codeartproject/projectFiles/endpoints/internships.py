@@ -140,12 +140,10 @@ class InternAllInfo(Resource):
 
             if verify_auth('auth', 'id'):                                                           #Verify that it is authenticated
                 internship_list = Internship.query.all()
-                intern_count = db.session.query(func.count(Internship.id).label('number').first().number)
-                print(intern_count)
-                for single_intern in internship_list:                                                      #If the id matches an internship in the database then return the information regarding the internship
+                for single_intern in internship_list:                                               #If the id matches an internship in the database then return the information regarding the internship
                     print("Internship Exists")
                     
-                    return {"id": single_intern.id, "count": intern_count, "success": True}, 200
+                    return {"id": single_intern.id, "success": True}, 200
             else:
                 return {"msg": "Invalid ID or Auth Token", "success": False}, 400                   #If the internship is not verified, return the error message
 
