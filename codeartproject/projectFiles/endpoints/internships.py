@@ -146,7 +146,7 @@ class InternAllInfo(Resource):
                     print("Internship Exists")
                     id_list.append({"id": single_intern.id})
 
-                return jsonify(message="All Internship Ids", category="success", data=id_list, status=200)
+                return jsonify(message=f"All Internship Ids", category="success", data=id_list, status=200)
             else:
                 return {"msg": "Invalid ID or Auth Token", "success": False}, 400                   #If the internship is not verified, return the error message
 
