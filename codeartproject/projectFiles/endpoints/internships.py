@@ -115,6 +115,8 @@ class InternInfo(Resource):
             parser.add_argument('intern_id', type=str)
             args = parser.parse_args()
 
+            print(request.data)
+
             if verify_auth('auth', 'id'):                                                           #Verify that it is authenticated
                 internship = Internship.query.get( int( args["intern_id"] ) )                       #Get the internship using the internship id
                 if internship:                                                                      #If the id matches an internship in the database then return the information regarding the internship
