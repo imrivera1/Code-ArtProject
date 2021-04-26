@@ -108,6 +108,7 @@ def create_api(app):
 class InternInfo(Resource):
     def get(self):
         try:
+            print(request.data)
             parser = reqparse.RequestParser()                                                       #Get the parameter id, auth, and intern_id of the internship
             parser.add_argument('id', type=str)
             parser.add_argument('auth', type=str)
