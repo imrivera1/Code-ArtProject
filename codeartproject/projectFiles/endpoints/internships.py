@@ -140,7 +140,7 @@ class InternAllInfo(Resource):
 
             if verify_auth('auth', 'id'):                                                           #Verify that it is authenticated
                 internship_list = Internship.query.all()
-                intern_count = session.query(func.count(Internship.id).label('number').first().number)
+                intern_count = db.session.query(func.count(Internship.id).label('number').first().number)
                 print(intern_count)
                 for single_intern in internship_list:                                                      #If the id matches an internship in the database then return the information regarding the internship
                     print("Internship Exists")
