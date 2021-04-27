@@ -1,0 +1,58 @@
+#main-header { 
+	display: none; 
+}
+
+#main-footer { 
+	display: none; 
+}
+
+#page-container {
+	padding-top: 0px !important;
+	margin-top: -1px !important;
+}
+
+/*Account page nav buttons, and other buttons used by MemberPress*/
+.mepr-submit, .button-primary, .mepr-active-nav-tab a {
+    color: #ffffff!important;
+    border-width: 10px!important;
+    border-color: #7272ff;
+    border-radius: 100px;
+    letter-spacing: 1px;
+    font-size: 16px;
+    font-weight: 700!important;
+    text-transform: uppercase!important;
+    padding-left: 2em;
+    padding-right: 2em;
+    background-color: #7272ff !important;
+}
+ 
+#mepr-account-nav {
+    text-align: center;
+}
+ 
+.mepr-nav-item a, .mepr-payments a {
+    background: #eeeeee;
+    padding: 0.5em 1em;
+  border-radius: 100px; 
+}
+/*styles form fields and text form field text*/
+.mp_wrapper textarea, .mp_wrapper select, .mp_wrapper input[type=text], .mp_wrapper input[type=url], .mp_wrapper input[type=email], .mp_wrapper input[type=tel], .mp_wrapper input[type=number], .mp_wrapper input[type=password] {
+    border: 1px solid rgba(71,74,182,0.12)!important;
+    color: rgba(114,114,255,0.91)!important;
+    padding: 12px 10px !important;
+    background: #f8f8f8
+}
+
+/* Gravity Forms Submit Button */
+body .gform_wrapper .gform_footer input[type=submit] {
+	font-family:'Gotham Rounded Medium';
+	color:#ffffff;
+  padding-top:4px;
+  padding-bottom:4px;
+  padding-left:10px;
+  padding-right:10px;
+  border: 2px solid #52489c;
+  border-radius: 2px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
