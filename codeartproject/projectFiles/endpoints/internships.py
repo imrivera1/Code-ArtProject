@@ -108,14 +108,11 @@ def create_api(app):
 class InternInfo(Resource):
     def get(self):
         try:
-            print(request.data)
             parser = reqparse.RequestParser()                                                       #Get the parameter id, auth, and intern_id of the internship
             parser.add_argument('id', type=str)
             parser.add_argument('auth', type=str)
             parser.add_argument('intern_id', type=str)
             args = parser.parse_args()
-
-            print(request.data)
 
             if verify_auth('auth', 'id'):                                                           #Verify that it is authenticated
                 internship = Internship.query.get( int( args["intern_id"] ) )                       #Get the internship using the internship id
