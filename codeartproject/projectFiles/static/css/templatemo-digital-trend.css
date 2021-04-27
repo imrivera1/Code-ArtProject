@@ -13,6 +13,22 @@ https://templatemo.com/tm-538-digital-trend
       font-style: normal;
   }
 
+  @font-face {
+      font-family: 'Plain-Light';
+      src: url('../fonts/Plain-Light.woff2') format('woff2'),
+          url('../fonts/Plain-Light.woff') format('woff');
+      font-weight: bold;
+      font-style: normal;
+  }
+
+  @font-face {
+      font-family: 'Plain-Bold';
+      src: url('../fonts/Plain-Bold.woff2') format('woff2'),
+          url('../fonts/Plain-Bold.woff') format('woff');
+      font-weight: bold;
+      font-style: normal;
+  }
+
   :root {
     --primary-color:        #9593D9;
     --secondary-color:      #9593D9;
