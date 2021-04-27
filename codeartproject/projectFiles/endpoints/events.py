@@ -12,6 +12,7 @@ app_api = None
 def create_api(app):
     app_api = Api(app)
     app_api.add_resource(EventInfo, "/eventinfo")
+    app_api.add_resource(EventAllInfo, "/eventallinfo")
     '''app_api.add_resource(EventModify, "/eventmodify")
     app_api.add_resource(EventCreate, "/eventcreate")
     app_api.add_resource(EventDelete, "/eventdelete")'''
@@ -75,15 +76,41 @@ class EventInfo(Resource):
                 if event:                                                                           #If the id matches an event in the database then return the information regarding the event
                     print("Event Exists")
 
-                    return {"event_name": event.event_name, "organizers": event.organizers, "location": event.location, "cost": event.cost,
-                    "start_datetime": event.start_datetime, "end_datetime": event.end_datetime, "details": event.details, 
-                    "success": True}, 200
+                    return {"event_name": event.event_name, "organizers": event.organizers, 
+                    "location": event.location, "cost": event.cost, "link": event.link, 
+                    "start_datetime": event.start_datetime, "end_datetime": event.end_datetime, 
+                    "details": event.details, "success": True}, 200
             else:
                 return {"msg": "Invalid ID or Auth Token", "success": False}, 400                   #If the event is not verified, return the error message 
 
         except Exception as exe:                                                                    #If the parameters are incorrect, return error message
             print(exe)
             return {"msg": "Incorrect Event ID", "success": False}, 400
+
+class EventAllInfo(Resource):
+    def get(self):
+        try:
+            parser = reqparse.RequestParser()                                                       #Get the parameter id, auth, and intern_id of the internship
+            parser.add_argument('id', type=str)
+            parser.add_argument('auth', type=str)
+            args = parser.parse_args()
+
+            id_list = []
+
+            if verify_auth('auth', 'id'):                                                           #Verify that it is authenticated
+                event_list = Event.query.all()
+                for single_event in event_list:                                                #If the id matches an internship in the database then return the information regarding the internship
+                    print("Event Exists")
+                    id_list.append(single_event.id)
+
+                return jsonify(message=f"All Event Ids", category="success", data=id_list, status=200)
+            else:
+                return {"msg": "Invalid ID or Auth Token", "success": False}, 400                   #If the internship is not verified, return the error message
+
+        except Exception as exe:
+            print(exe)
+            return {"msg": "Incorrect Internship ID", "success": False}, 400                        #If the parameters are incorrect, return error message
+
 
 #Endpoint for creating events for the app ( Might Not Need This Either )
 '''class EventCreate(Resource):

@@ -122,8 +122,9 @@ class InternInfo(Resource):
                 if internship:                                                                      #If the id matches an internship in the database then return the information regarding the internship
                     print("Internship Exists")
 
-                    return {"location": internship.location, "company": internship.company, "role": internship.role, 
-                    "link": internship.link, "start_datetime": internship.start_datetime, "end_datetime": internship.end_datetime, 
+                    return {"location": internship.location, "company": internship.company, 
+                    "role": internship.role, "link": internship.link, 
+                    "start_datetime": internship.start_datetime, "end_datetime": internship.end_datetime, 
                     "details": internship.details, "success": True}, 200
             else:
                 return {"msg": "Invalid ID or Auth Token", "success": False}, 400                   #If the internship is not verified, return the error message

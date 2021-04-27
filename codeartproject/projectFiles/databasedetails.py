@@ -65,6 +65,7 @@ class Event(db.Model):
     organizers: str
     location: str
     cost: str
+    link: str
     details: str
     """
 
@@ -73,6 +74,7 @@ class Event(db.Model):
     organizers = db.Column(db.Text, nullable = False)
     location = db.Column(db.Text, nullable = False)
     cost = db.Column(db.Text, nullable = False)
+    link = db.Column(db.Text, nullable = False)
     start_datetime = db.Column(db.Text, nullable = False)
     end_datetime = db.Column(db.Text, nullable = False)
     details = db.Column(db.Text, nullable = False)
