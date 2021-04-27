@@ -8,23 +8,7 @@ https://templatemo.com/tm-538-digital-trend
   
   @font-face {
       font-family: 'Gotham Rounded Bold';
-      src: url('../fonts/Gotham\ Rounded\ Bold.otf') format('otf');
-      font-weight: bold;
-      font-style: normal;
-  }
-
-  @font-face {
-      font-family: 'Plain-Light';
-      src: url('../fonts/Plain-Light.woff2') format('woff2'),
-          url('../fonts/Plain-Light.woff') format('woff');
-      font-weight: bold;
-      font-style: normal;
-  }
-
-  @font-face {
-      font-family: 'Plain-Bold';
-      src: url('../fonts/Plain-Bold.woff2') format('woff2'),
-          url('../fonts/Plain-Bold.woff') format('woff');
+      src: url('../fonts/Gotham Rounded Bold.otf') format('otf');
       font-weight: bold;
       font-style: normal;
   }
