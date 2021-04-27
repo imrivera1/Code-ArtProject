@@ -44,9 +44,9 @@ https://templatemo.com/tm-538-digital-trend
     --link-color:           #404040;
     --p-color:              #666262;
 
-    --base-font-family:     'Gotham Rounded Medium';
-    --title-font-family:    'Gotham Rounded Medium';
-    --font-bold-family:     'Gotham Rounded Medium';
+    --base-font-family:     'Gotham Rounded Bold';
+    --title-font-family:    'Gotham Rounded Bold';
+    --font-bold-family:     'Gotham Rounded Bold';
     --font-weight-bold:     bold;
 
     --h1-font-size:         42px;
@@ -237,7 +237,7 @@ https://templatemo.com/tm-538-digital-trend
   }
 
   .nav-link {
-    color: var(--secondary-color);
+    color: var(--white-color);
     font-size: var(--menu-font-size);
     letter-spacing: 0.4px;
     margin: 0 1.6em;
@@ -246,7 +246,7 @@ https://templatemo.com/tm-538-digital-trend
 
   .nav-link.active,
   .nav-link:hover {
-    color: var(--white-color);
+    color: var(--secondary-color);
   }
 
   .navbar-expand-lg .navbar-nav .nav-link {
