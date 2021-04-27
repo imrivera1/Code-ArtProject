@@ -7,8 +7,13 @@ https://templatemo.com/tm-538-digital-trend
 */
   
   @font-face {
-      font-family: 'Gotham Rounded Bold';
-      src: url('../fonts/Gotham Rounded Bold.otf') format('opentype');
+      font-family: 'GothamRounded-Bold';
+      src: url('/fonts/GothamRounded-Bold.eot');
+      src: url('/fonts/GothamRounded-Bold.woff2') format('woff2'),
+       url('/fonts/GothamRounded-Bold.woff') format('woff'),
+       url('/fonts/GothamRounded-Bold.ttf') format('truetype'),
+       url('/fonts/GothamRounded-Bold.svg#GothamRounded-Bold') format('svg'),
+       url('/fonts/GothamRounded-Bold.eot?#iefix') format('embedded-opentype');
       font-weight: bold;
       font-style: normal;
   }
@@ -43,9 +48,9 @@ https://templatemo.com/tm-538-digital-trend
     --link-color:           #404040;
     --p-color:              #666262;
 
-    --base-font-family:     'Gotham Rounded Bold';
-    --title-font-family:    'Gotham Rounded Bold';
-    --font-bold-family:     'Gotham Rounded Bold';
+    --base-font-family:     'GothamRounded-Bold';
+    --title-font-family:    'GothamRounded-Bold';
+    --font-bold-family:     'GothamRounded-Bold';
     --font-weight-bold:     bold;
 
     --h1-font-size:         42px;
