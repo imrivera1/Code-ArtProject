@@ -25,7 +25,7 @@ event.create_api(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///databaseFiles/ca_database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
-app.config["SECRET_KEY"] = "@fJ99YM20bAq"
+app.config["SECRET_KEY"] = "@fJ99YM20bAq"    # Change when handed over due to it being posted on Github
 db.app = app
 db.init_app(app)
 
