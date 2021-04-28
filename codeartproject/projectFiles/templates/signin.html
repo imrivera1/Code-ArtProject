@@ -46,24 +46,26 @@ https://templatemo.com/tm-538-digital-trend
     <div class="container">
       <div class="row">
 
+        <p> 
+          <center>
+          Welcome To The Admin Dashboard!
+          </center>
+        </p> 
+
+        <p> 
+          <center>
+          Please Enter Your Admin Credentials Below To Get Started.
+          </center>
+        </p>
+
         <div class="col-lg-8 mx-auto col-md-10 col-12">
+          
 
           <!-- Follow https://templatemo.com/contact page to setup your own contact form -->
 
           <form action="/login" method="POST" class="contact-form" data-aos-delay="300" role="form">
             <div class="row">
               <div class="col-lg-6 col-12">
-                  <p> 
-                    <center>
-                    Welcome To The Admin Dashboard!
-                    </center>
-                  </p> 
-
-                  <p> 
-                    <center>
-                    Please Enter Your Admin Credentials Below To Get Started.
-                    </center>
-                  </p>
 
                 {{ login_form.hidden_tag() }}
                 {{ error|safe }}
