@@ -36,7 +36,7 @@ login_manager.init_app(app)
 app.register_blueprint(login_blueprint)
 
 #admin dashboard
-admin = Admin(app, name = "Admin", url = "/admin", endpoint = "admin", template_mode="admin/static/bootstrap/bootstrap3/swatch/cerulean/bootstrap.min.css")
+admin = Admin(app, name = "Admin", url = "/admin", endpoint = "admin", template_mode="bootstrap3")
 admin.add_view(AdminModelViewAcc(Account, db.session))
 admin.add_view(AdminModelViewIntern(Internship, db.session))
 admin.add_view(AdminModelViewEvent(Event, db.session))
