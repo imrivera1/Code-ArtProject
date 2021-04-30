@@ -21,6 +21,8 @@ login_blueprint = Blueprint("logins","__logins__")                              
 class AdminModelViewAcc(ModelView):
     column_searchable_list = ["first_name","last_name","email","birthday", "age", "graduation"]      #Options for the admins to search in the search bar
 
+    can_export = True
+
     form_excluded_columns = ("age")                                                                  #Excludes inputting age manually when creating or editing an account
 
     def is_accessible(self):
@@ -38,6 +40,8 @@ class AdminModelViewAcc(ModelView):
 class AdminModelViewIntern(ModelView):                               
     column_searchable_list = ["location","company"]                                                  #Options for the admins to search in the search bar
 
+    can_export = True
+
     def is_accessible(self):                                                                         
         return current_user.is_authenticated and current_user.is_admin                               #Returns whether the user is authenticated and an admin 
                                                                                                             #thus allowing them to view the dashboard
@@ -48,6 +52,8 @@ class AdminModelViewIntern(ModelView):
 
 class AdminModelViewEvent(ModelView):
     column_searchable_list = ["location","organizers", "event_name"]                                 #Options for the admins to search in the search bar
+
+    can_export = True
 
     def is_accessible(self):
         return current_user.is_authenticated and current_user.is_admin                               #Returns whether the user is authenticated and an admin 
