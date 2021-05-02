@@ -43,10 +43,6 @@ admin.add_view(AdminModelViewEvent(Event, db.session))
 admin.add_link(AdminLogoutLink(name="Logout", category='', url="/logout"))
 
 
-app.add_url_rule('/codeartlogo.ico',
-                 redirect_to=url_for('static', filename='codeartlogo.ico'))
-
-
 #Redirects user to login no matter if they put a slash or nothing after the link 
 @app.route('/', defaults={"path":''})
 def static_files(path=None):
