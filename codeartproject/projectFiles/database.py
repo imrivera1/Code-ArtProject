@@ -24,7 +24,7 @@ event.create_api(app)
 #init database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///databaseFiles/ca_database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
+app.config['FLASK_ADMIN_SWATCH'] = 'pulse'
 app.config["SECRET_KEY"] = "@fJ99YM20bAq"    # Change when handed over due to it being posted on Github
 db.app = app
 db.init_app(app)
@@ -36,7 +36,7 @@ login_manager.init_app(app)
 app.register_blueprint(login_blueprint)
 
 #admin dashboard
-admin = Admin(app, name = "Admin", url = "/admin", endpoint = "admin", template_mode="bootstrap3")
+admin = Admin(app, name = "Admin", url = "/admin", endpoint = "admin", template_mode="bootstrap4")
 admin.add_view(AdminModelViewAcc(Account, db.session))
 admin.add_view(AdminModelViewIntern(Internship, db.session))
 admin.add_view(AdminModelViewEvent(Event, db.session))
