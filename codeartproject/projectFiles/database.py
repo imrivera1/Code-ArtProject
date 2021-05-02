@@ -35,6 +35,9 @@ login_manager.init_app(app)
 # blueprints
 app.register_blueprint(login_blueprint)
 
+app.add_url_rule('/codeartlogo.ico',
+                 redirect_to=url_for('static', filename='codeartlogo.ico'))
+
 #admin dashboard
 admin = Admin(app, name = "Admin", url = "/admin", endpoint = "admin", template_mode="bootstrap4")
 admin.add_view(AdminModelViewAcc(Account, db.session))
