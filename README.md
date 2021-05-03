@@ -10,14 +10,14 @@ The goal of the Code/Art LEADHers project is to create an iOS application for yo
 2. Communication with app for sign up and login 
 3. Admin Dashboard with Account, Internship, and Event menus and information displayed
 4. Create, Edit, and Modify functions in admin dashboard for all menus
-5. Calculates age of the user based on the birthday input  
+5. Calculates age of the user based on the birthday input every year  
 6. Logout Functionality
-7. Only logged in and verified admins can view the dashboard 
+7. Only logged in and verified admins can view the dashboard
+8. Export Account, Internship, and Event Information to CSV files 
 
 ## Not Yet Implemented Features: 
-1. App communication in the profile, internships, and events
-2. Confirmation and Forgot Password emails 
-3. Signin and Admin Dashboard HTML does not yet match CodeArt brand, colors, and font
+1. Confirmation and Forgot Password emails 
+2. Barcode Reward System
 
 ## Dependencies: 
 1. Python 3.8.5
@@ -27,12 +27,13 @@ The goal of the Code/Art LEADHers project is to create an iOS application for yo
 
 ## Instructions for Compilation
 1. Download the project via git / or zip
-2. Open folder
+2. Open folders until reaching folder labelled projectFiles
 3. pip install -r requirements.txt
-4. python /initialization/init_db.py
-5. (For any new admins or if the database is entirely reset) python /initialization/admin_credentials.py
+4. (Using the makefile commands) make app_setup
+5. (For any new admins or if the database is entirely reset) make admin_cred
 
 ## Instructions for Running
-1. python -m flask run --port 4258 (Change the port based on the port that you want listened in on)
-    - This needs to run in the background constantly so ' screen -r ' without the quotes will be needed to create a background screen so that, when this previous command is used, the database will always be running
+1. make flask (Change the port in the makefile based on the port that you want listened in on)
+    - This needs to run in the background constantly so ' screen ' without the quotes will be needed to create a background screen so that, when this previous command is used, the database will always be running
+    - To view the database running after exiting the IDE, put the command ' screen -r ' without the quotes in the command line to return to the detached screen 
 
