@@ -35,7 +35,7 @@ class AdminModelViewAcc(ModelView):
 
     def _handle_view(self, name, **kwargs):                                                          #If user is not an admin or authenticated, they are redirected to login and can't view anything
         if not self.is_accessible():
-            return redirect(url_for('login', next=request.url))
+            return redirect(url_for('logout'))
 
 class AdminModelViewIntern(ModelView):                               
     column_searchable_list = ["location","company"]                                                  #Options for the admins to search in the search bar
@@ -48,7 +48,7 @@ class AdminModelViewIntern(ModelView):
 
     def _handle_view(self, name, **kwargs):                                                          #If user is not an admin or authenticated, they are redirected to login and can't view anything
         if not self.is_accessible():
-            return redirect(url_for('login', next=request.url))
+            return redirect(url_for('logout'))
 
 class AdminModelViewEvent(ModelView):
     column_searchable_list = ["location","organizers", "event_name"]                                 #Options for the admins to search in the search bar
@@ -61,7 +61,7 @@ class AdminModelViewEvent(ModelView):
 
     def _handle_view(self, name, **kwargs):                                                          #If user is not an admin or authenticated, they are redirected to login and can't view anything
         if not self.is_accessible():
-            return redirect(url_for('login', next=request.url))
+            return redirect(url_for('logout'))
 
 class AdminLogoutLink(MenuLink):
     def is_accessible(self):
@@ -70,7 +70,7 @@ class AdminLogoutLink(MenuLink):
 
     def _handle_view(self, name, **kwargs):                                                          #If user is not an admin or authenticated, they are redirected to login and can't view anything
         if not self.is_accessible():
-            return redirect(url_for('login', next=request.url))
+            return redirect(url_for('logout'))
 
 class LoginForm(FlaskForm):                                                                          #Form an admin will see in login for email and password login
     email = StringField('Email', validators=[InputRequired(), Length(min=4,max=64)])                 #Email must have a minimum of 4 characters in order to accept it as an email
@@ -102,8 +102,10 @@ def login():                                                                    
         user = Account.query.filter_by(email=str(form.email.data).lower()).first()                   #Looks through the emails to see if the input email is for a registered account
         if user:                                                                                     #If the email belongs to a registered user then check the password
             if check_password_hash(user.password,str(form.password.data)):                           #Get the password that was input and check if the password is registered with that email 
-                login_user(user)                                                                     #If true, then login the user and redirect them to the admin dashboard
-                return redirect("/admin")
+                if user.is_admin:                                                                    #If true and the user is an admin, then login the user and redirect them to the admin dashboard
+                    login_user(user)                                                                 
+                    return redirect("/admin")
+                return render_template("signin.html", login_form=form, error=log_error)              #Otherwise, an error will be output that the credentials are incorrect since it is not an admin account
             return render_template("signin.html", login_form=form, error=log_error)                  #Otherwise, if the email or password is incorrect, show the login page with error information
         return render_template("signin.html", login_form=form, error=log_error)
     return render_template("signin.html", login_form=form)                                           #Show the login page with the form fields if nothing is input yet
