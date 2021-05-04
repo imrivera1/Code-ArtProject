@@ -5,6 +5,9 @@
 ## Overview of Project: 
 The goal of the Code/Art LEADHers project is to create an iOS application for young female students who are a part of Code/Art’s Future Tech LeadHERS program. Code/Art is a nonprofit organization aimed at getting more girls into the computer science field. Hence, this application, along with the database and administrative dashboard, is aimed to help keep female students engaged in Computer Science in the middle school and high school years. This application includes account creation and login where a student will be able to view events and internships that are being hosted by Code/Art or one of their partners. The administrative dashboard will be accessed only on a desktop or laptop where admins can create, modify, or delete these events and internships. In addition, they can easily remove, modify, or create user or admin accounts. Thus, this project provides security and ease of use to its users and its administrators. 
 
+## Files: 
+All the files pertaining to the database and its construction are in the folder projectFiles which is inside the directory codeartproject. Inside projectFiles, there is an initialization folder where the files of initializaing the database and injecting admin credentials are location. There is another folder labelled endpoints where the files of the endpoints for the iOS app are located. In addition, there is a folder labelled templates which contains the signin.html for the login html page. Lastly, the projectFiles folder contains the database, login, and age calculation files inside.
+
 ## Implemented Features: 
 1. Admin Login with Error check and displayed Error message (omits whether email or password was wrong for security purposes)
 2. Communication with app for sign up and login 
@@ -24,6 +27,7 @@ The goal of the Code/Art LEADHers project is to create an iOS application for yo
 2. Flask and its respective imports, such as flask_login -- Flask 1.1.2
 3. SQLAlchemy 1.1
 4. Werkzeug 1.0.1
+5. To install these, simply run in the command line while in the projectFiles folder "pip install -r requirements.txt"
 
 ## Instructions for Compilation
 1. Download the project via git / or zip
